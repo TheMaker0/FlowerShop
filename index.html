@@ -64,8 +64,17 @@
     display:flex; align-items:center; gap:10px;
     font-family:'Fraunces', serif; font-size:21px; font-weight:600;
     color:var(--moss);
+    transition:transform 0.25s ease, color 0.25s ease;
   }
-  .logo svg{width:26px; height:26px;}
+  .logo:hover{
+    transform:translateY(-1px) scale(1.02);
+    color:var(--rose);
+  }
+  .logo svg{
+    width:26px; height:26px;
+    transition:transform 0.25s ease;
+  }
+  .logo:hover svg{transform:rotate(-8deg) scale(1.05);}
   .nav-links{display:flex; gap:36px; font-size:14px; letter-spacing:0.02em;}
   .nav-links a{position:relative; padding:4px 0; color:var(--ink);}
   .nav-links a::after{
