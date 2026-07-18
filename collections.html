@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fleurae Atelier </title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,ital@9..144,300..700,0..1&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--moss:#1F2A1E;--paper:#FAF6EE;--rose:#C97B84;--ochre:#C99B4A;--ink:#2A271F;--sage:#8FA37E;--line:rgba(42,39,31,0.14);}
+  *{box-sizing:border-box;margin:0;padding:0;} html{scroll-behavior:smooth;} body{background:var(--paper);color:var(--ink);font-family:'Work Sans',sans-serif;font-weight:400;line-height:1.6;}
+  h1,h2,h3,.display{font-family:'Fraunces',serif;font-weight:500;color:var(--moss);} a{color:inherit;text-decoration:none;} img,svg{display:block;max-width:100%;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;} .logo{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-size:21px;font-weight:600;color:var(--moss);} .nav-links{display:flex;gap:36px;font-size:14px;}
+  header{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(250,246,238,0.86);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);} nav.wrap{display:flex;align-items:center;justify-content:space-between;height:84px;} .nav-cta{border:1px solid var(--moss);padding:10px 22px;border-radius:999px;background:transparent;font-family:'Work Sans',sans-serif;font-size:14px;cursor:pointer;transition:background .25s ease, color .25s ease;} .nav-cta:hover{background:var(--moss);color:var(--paper);}
+
+  /* header/footer social icons */
+  .social-row{display:flex;align-items:center;gap:14px;}
+  .social-icon{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;transition:background .25s ease, border-color .25s ease, transform .25s ease;}
+  .social-icon:hover{background:var(--moss);border-color:var(--moss);transform:translateY(-2px);}
+  .social-icon:hover svg{stroke:var(--paper) !important;}
+  footer .social-icon{border-color:rgba(250,246,238,0.18);}
+  footer .social-icon:hover{background:var(--rose);border-color:var(--rose);}
+
+  .collection{background:var(--moss);padding:100px 0;color:var(--paper);} .collection .section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:56px;gap:24px;flex-wrap:wrap;} .collection h2{color:var(--paper);font-size:clamp(30px,3.6vw,46px);} .collection .eyebrow{color:var(--ochre);font-size:13px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:10px;} .collection .section-head > p{max-width:320px;font-size:13.5px;color:#ADB39E;} .card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+  .card{background:#243124;border-radius:18px;overflow:hidden;border:1px solid rgba(250,246,238,0.08);transition:transform .35s ease;} .card-art{aspect-ratio:4/5;overflow:hidden;background:linear-gradient(180deg, rgba(201,123,132,0.12), rgba(143,163,126,0.08));} .card-art img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;} .card:hover{transform:translateY(-6px);} .card:hover .card-art img{transform:scale(1.05);} .card-body{padding:22px 22px 26px;} .card-body .tag{font-size:11px;color:var(--rose);margin-bottom:8px;display:block;letter-spacing:.06em;text-transform:uppercase;} .card-body h3{color:var(--paper);font-size:21px;font-weight:500;margin-bottom:8px;} .card-body p{font-size:13.5px;color:#ADB39E;margin-bottom:16px;} .card-foot{display:flex;justify-content:space-between;align-items:center;font-size:14px;}
+  .card-foot .price{font-family:'Fraunces',serif;font-size:18px;color:var(--paper);} .card-foot a{color:var(--ochre);display:inline-flex;align-items:center;gap:6px;transition:gap .2s ease;} .card-foot a:hover{gap:10px;}
+
+  .lightbox{position:fixed;inset:0;background:rgba(31,42,30,0.92);z-index:200;display:none;align-items:center;justify-content:center;padding:40px;} .lightbox.open{display:flex;} .lightbox img{max-width:90vw;max-height:85vh;border-radius:12px;} .lightbox-close{position:absolute;top:28px;right:32px;color:var(--paper);font-size:28px;cursor:pointer;width:44px;height:44px;display:flex;align-items:center;justify-content:center;}
+
+  footer{background:var(--moss);color:#C9CFC2;padding:56px 0 32px;} .footer-grid{display:flex;justify-content:space-between;flex-wrap:wrap;gap:32px;margin-bottom:40px;} .footer-brand{font-family:'Fraunces',serif;font-size:22px;color:var(--paper);max-width:280px;} .footer-brand p{font-size:13px;color:#9CA28F;margin-top:10px;font-family:'Work Sans',sans-serif;font-weight:400;}
+  .footer-col{display:flex;flex-direction:column;gap:12px;font-size:13.5px;} .footer-col h4{font-family:'Fraunces',serif;font-weight:500;color:var(--paper);font-size:14px;margin-bottom:4px;} .footer-col a{color:#C9CFC2;transition:color .2s ease;} .footer-col a:hover{color:var(--ochre);}
+  .footer-bottom{border-top:1px solid rgba(250,246,238,0.1);padding-top:24px;font-size:12.5px;display:flex;justify-content:space-between;color:#828867;flex-wrap:wrap;gap:12px;}
+
+  /* order modal */
+  .modal-overlay{position:fixed;inset:0;background:rgba(31,42,30,0.55);backdrop-filter:blur(3px);z-index:300;display:none;align-items:center;justify-content:center;padding:24px;}
+  .modal-overlay.open{display:flex;}
+  .modal-box{position:relative;width:100%;max-width:440px;max-height:90vh;overflow-y:auto;background:var(--paper);border-radius:18px;padding:44px 36px 36px;box-shadow:0 30px 70px rgba(31,42,30,0.35);}
+  .modal-close{position:absolute;top:18px;right:20px;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--moss);font-size:16px;transition:background .2s ease;}
+  .modal-close:hover{background:var(--line);}
+  .modal-box h3{font-size:26px;margin-bottom:6px;}
+  .modal-box .sub{font-size:13.5px;color:var(--rose);margin-bottom:26px;}
+  .field{margin-bottom:18px;display:flex;flex-direction:column;gap:6px;}
+  .field label{font-size:12.5px;letter-spacing:.03em;text-transform:uppercase;color:#6b6653;}
+  .field input,.field textarea{font-family:'Work Sans',sans-serif;font-size:14.5px;color:var(--ink);border:1px solid var(--line);background:#fff;border-radius:10px;padding:11px 13px;outline:none;transition:border-color .2s ease;}
+  .field input:focus,.field textarea:focus{border-color:var(--sage);}
+  .field textarea{min-height:84px;resize:vertical;}
+  .btn-primary{width:100%;background:var(--moss);color:var(--paper);border:none;border-radius:999px;padding:14px 20px;font-family:'Work Sans',sans-serif;font-size:14.5px;cursor:pointer;transition:background .25s ease;margin-top:4px;}
+  .btn-primary:hover{background:#2c3a2a;}
+  .form-note{font-size:11.5px;color:#8a866f;margin-top:12px;line-height:1.5;}
+  .form-success{display:none;text-align:center;padding:20px 0 4px;}
+  .form-success.show{display:block;}
+  .form-success svg{width:52px;height:52px;stroke:var(--sage);margin:0 auto 18px;}
+  .form-success h3{margin-bottom:10px;}
+  .form-success .sub{color:#6b6653;margin-bottom:24px;}
+
+  @media (max-width:920px){ .card-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:700px){ .nav-links{display:none;} }
+  @media (max-width:600px){ .card-grid{grid-template-columns:1fr;} .wrap{padding:0 22px;} .collection{padding:70px 0;} }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a href="index(1).html" class="logo">
+      <svg viewBox="0 0 24 24"><path d="M12 2C12 2 8 6 8 10C8 12.2 9.8 14 12 14C14.2 14 16 12.2 16 10C16 6 12 2 12 2Z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M12 14V22" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
+      Fleurae Atelier
+    </a>
+    <div class="nav-links">
+      <a href="index(1).html#philosophy">Studio</a>
+      <a href="collections.html" aria-current="page">Collection</a>
+      <a href="index(1).html#albums">Albums</a>
+      <a href="index(1).html#process">Process</a>
+      <a href="index(1).html#visit">Visit</a>
+    </div>
+    <div style="display:flex; align-items:center; gap:18px;">
+      <div class="social-row">
+        <a class="social-icon" href="https://facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--moss)" stroke-width="1.6"><path d="M15 8h-2a2 2 0 0 0-2 2v3H9v3h2v6h3v-6h2.2l.8-3H14v-2a1 1 0 0 1 1-1h2V8Z"/></svg>
+        </a>
+        <a class="social-icon" href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--moss)" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.4"/><circle cx="16.6" cy="7.4" r="0.6" fill="var(--moss)"/></svg>
+        </a>
+      </div>
+      <button class="nav-cta" onclick="openOrderModal('General inquiry')">Order flowers</button>
+    </div>
+  </nav>
+</header>
+
+<main style="padding-top:100px;">
+  <section class="collection" id="collection">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">This week's cut</span>
+          <h2>The seasonal collection</h2>
+        </div>
+        <p>Updated every Monday based on what the growers have ready. Quantities are limited — arrangements are made to order, not stockpiled.</p>
+      </div>
+      <div class="card-grid">
+
+        <div class="card">
+          <div class="card-art">
+            <img src="./img/2.png" alt="The Hollow Lane bouquet — blush garden roses and trailing jasmine">
+          </div>
+          <div class="card-body">
+            <span class="tag">Garden rose</span>
+            <h3>The Hollow Lane</h3>
+            <p>Blush garden roses, dusty miller, trailing jasmine vine.</p>
+            <div class="card-foot">
+              <span class="price">$68</span>
+              <a href="#" onclick="openOrderModal('The Hollow Lane — $68'); return false;">Reserve <span aria-hidden="true">→</span></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-art">
+            <img src="./img/3.png" alt="The Hollow Lane bouquet — blush garden roses and trailing jasmine">
+          </div>
+          <div class="card-body">
+            <span class="tag">Garden rose</span>
+            <h3>The Hollow Lane</h3>
+            <p>Blush garden roses, dusty miller, trailing jasmine vine.</p>
+            <div class="card-foot">
+              <span class="price">$68</span>
+              <a href="#" onclick="openOrderModal('The Hollow Lane — $68'); return false;">Reserve <span aria-hidden="true">→</span></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-art">
+            <img src="./img/4.png" alt="Low Meadow bouquet — wild gathered cosmos and grasses">
+          </div>
+          <div class="card-body">
+            <span class="tag">Wild gathered</span>
+            <h3>Low Meadow</h3>
+            <p>Cosmos, queen anne's lace, and bunny tail grass, loosely tied.</p>
+            <div class="card-foot">
+              <span class="price">$54</span>
+              <a href="#" onclick="openOrderModal('Low Meadow — $54'); return false;">Reserve <span aria-hidden="true">→</span></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-art">
+            <img src="./img/5.png" alt="Ember and Smoke bouquet — amber dahlias and ranunculus">
+          </div>
+          <div class="card-body">
+            <span class="tag">Statement</span>
+            <h3>Ember &amp; Smoke</h3>
+            <p>Dahlias and ranunculus in burnt amber, smoked eucalyptus.</p>
+            <div class="card-foot">
+              <span class="price">$92</span>
+              <a href="#" onclick="openOrderModal('Ember &amp; Smoke — $92'); return false;">Reserve <span aria-hidden="true">→</span></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-art">
+            <img src="./img/6.png" alt="Ember and Smoke bouquet — amber dahlias and ranunculus">
+          </div>
+          <div class="card-body">
+            <span class="tag">Statement</span>
+            <h3>Ember &amp; Smoke</h3>
+            <p>Dahlias and ranunculus in burnt amber, smoked eucalyptus.</p>
+            <div class="card-foot">
+              <span class="price">$92</span>
+              <a href="#" onclick="openOrderModal('Ember &amp; Smoke — $92'); return false;">Reserve <span aria-hidden="true">→</span></a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-close" onclick="closeLightbox()" role="button" aria-label="Close image" tabindex="0">✕</div>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        Marigold &amp; Stem
+        <p>A small floral atelier working in season, by hand, every day.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Studio</h4>
+        <a href="index(1).html#philosophy">Our approach</a>
+        <a href="index(1).html#process">How we work</a>
+        <a href="collections.html">This week's stems</a>
+      </div>
+      <div class="footer-col">
+        <h4>Follow</h4>
+        <div class="social-row">
+          <a class="social-icon" href="https://facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#D8DCCF" stroke-width="1.6"><path d="M15 8h-2a2 2 0 0 0-2 2v3H9v3h2v6h3v-6h2.2l.8-3H14v-2a1 1 0 0 1 1-1h2V8Z"/></svg>
+          </a>
+          <a class="social-icon" href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#D8DCCF" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.4"/><circle cx="16.6" cy="7.4" r="0.6" fill="#D8DCCF"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Marigold &amp; Stem Floral Atelier</span>
+      <span>Cut fresh, arranged daily</span>
+    </div>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="order-modal">
+  <div class="modal-box">
+    <div class="modal-close" onclick="closeOrderModal()" role="button" aria-label="Close form" tabindex="0">✕</div>
+
+    <div id="order-form-view">
+      <h3>Reserve your bouquet</h3>
+      <p class="sub" id="order-item-label">General inquiry</p>
+      <form id="order-form">
+        <div class="field">
+          <label for="of-name">Your name</label>
+          <input type="text" id="of-name" required>
+        </div>
+        <div class="field">
+          <label for="of-email">Email address</label>
+          <input type="email" id="of-email" required>
+        </div>
+        <div class="field">
+          <label for="of-date">Preferred pickup or delivery date</label>
+          <input type="date" id="of-date">
+        </div>
+        <div class="field">
+          <label for="of-message">Anything we should know?</label>
+          <textarea id="of-message" placeholder="Colors you love, occasion, delivery address..."></textarea>
+        </div>
+        <button type="submit" class="btn-primary">Send request →</button>
+        <p class="form-note">This opens your email app with the request pre-filled, addressed to fleurdelumiere16@gmail.com.</p>
+      </form>
+    </div>
+
+    <div class="form-success" id="order-success-view">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5L16 9"/></svg>
+      <h3>Request ready to send</h3>
+      <p class="sub">Your email app should have opened with the details filled in. Just hit send and we'll reply within the day.</p>
+      <button class="btn-primary" onclick="closeOrderModal()">Done</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function openOrderModal(itemLabel){
+    document.getElementById('order-item-label').textContent = itemLabel;
+    document.getElementById('order-form-view').style.display = 'block';
+    document.getElementById('order-success-view').classList.remove('show');
+    document.getElementById('order-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeOrderModal(){
+    document.getElementById('order-modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('order-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    var name = document.getElementById('of-name').value;
+    var email = document.getElementById('of-email').value;
+    var date = document.getElementById('of-date').value;
+    var message = document.getElementById('of-message').value;
+    var item = document.getElementById('order-item-label').textContent;
+    var subject = 'Bouquet request: ' + item;
+    var body = 'Name: ' + name + '\n' + 'Email: ' + email + '\n' + 'Preferred date: ' + (date || 'Not specified') + '\n\n' + 'Notes:\n' + (message || 'None');
+    var mailto = 'mailto:fleurdelumiere16@gmail.com' + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    window.location.href = mailto;
+    document.getElementById('order-form-view').style.display = 'none';
+    document.getElementById('order-success-view').classList.add('show');
+  });
+</script>
+
+</body>
+</html>
