@@ -747,68 +747,11 @@
     });
     orderSummary += '\nTotal: ₱' + total;
 
-    var baseUrl = window.location.origin + window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
-    var orderTableRows = '';
-    cart.forEach(function(item) {
-      var product = products[item.index];
-      var imageUrl = baseUrl + product.images[0].replace(/^\.\//, '');
-      var itemSubtotal = product.priceValue * item.quantity;
-      orderTableRows += '<tr>' +
-        '<td style="padding:14px;border-bottom:1px solid #e6e1d7;width:120px;"><img src="' + imageUrl + '" width="110" style="border-radius:12px;display:block;"></td>' +
-        '<td style="padding:14px;border-bottom:1px solid #e6e1d7;vertical-align:top;">' +
-          '<strong style="font-size:16px;color:#2a271f;">' + product.name + '</strong><br>' +
-          '<span style="color:#7a6e56;font-size:14px;">' + product.tag + '</span><br>' +
-          '<span style="color:#2a271f;font-size:14px;">Qty: ' + item.quantity + '</span><br>' +
-          '<span style="color:#c97b84;font-size:15px;font-weight:700;">₱' + itemSubtotal + '</span>' +
-        '</td>' +
-      '</tr>';
-    });
-
-    var htmlMessage = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>New Order</title></head>' +
-      '<body style="margin:0;padding:0;background:#f7f4ee;font-family:Arial,sans-serif;color:#333;">' +
-      '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f7f4ee;padding:30px 0;">' +
-        '<tr><td align="center">' +
-          '<table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:20px;overflow:hidden;box-shadow:0 18px 45px rgba(42,39,31,0.12);">' +
-            '<tr><td style="background:#1f2a1e;padding:28px 36px;color:#faf6ee;text-align:center;">' +
-              '<h1 style="margin:0;font-size:24px;letter-spacing:2px;">Fleurae Atelier</h1>' +
-              '<p style="margin:12px 0 0;font-size:14px;color:#d8dccf;">Order confirmation</p>' +
-            '</td></tr>' +
-            '<tr><td style="padding:28px 36px;">' +
-              '<p style="margin:0 0 18px;font-size:16px;color:#2a271f;">Hello Fleurae Atelier team,</p>' +
-              '<p style="margin:0 0 24px;font-size:14px;color:#7a6e56;">A new order has been placed. The customer will also receive a copy of this receipt.</p>' +
-              '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f7f4ee;border-radius:14px;">' +
-                '<tr><td style="padding:16px;">' +
-                  '<strong style="display:block;color:#2a271f;margin-bottom:6px;">Customer</strong>' +
-                  '<span style="display:block;color:#7a6e56;font-size:14px;">Name: ' + name + '</span>' +
-                  '<span style="display:block;color:#7a6e56;font-size:14px;">Email: ' + email + '</span>' +
-                  '<span style="display:block;color:#7a6e56;font-size:14px;">Phone: ' + phone + '</span>' +
-                  '<span style="display:block;color:#7a6e56;font-size:14px;">Address: ' + address + '</span>' +
-                '</td></tr>' +
-              '</table>' +
-              '<h2 style="margin:26px 0 12px;font-size:20px;color:#2a271f;">Order details</h2>' +
-              '<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">' +
-                orderTableRows +
-                '<tr><td colspan="2" style="padding:18px 14px 10px;border-bottom:1px solid #e6e1d7;"></td></tr>' +
-                '<tr><td style="padding:14px 14px;font-size:16px;color:#2a271f;"><strong>Total</strong></td>' +
-                '<td style="padding:14px 14px;font-size:16px;color:#c97b84;font-weight:700;text-align:right;">₱' + total + '</td></tr>' +
-              '</table>' +
-              '<p style="margin:32px 0 0;font-size:13px;color:#7a6e56;">Note: ' + (note || 'No note provided') + '</p>' +
-            '</td></tr>' +
-            '<tr><td style="background:#faf6ee;padding:22px 36px;text-align:center;color:#7a6e56;font-size:13px;">' +
-              'Order created on ' + orderDate + ' • Fleurae Atelier' +
-            '</td></tr>' +
-          '</table>' +
-        '</td></tr>' +
-      '</table>' +
-      '</body></html>';
-
     var formData = new FormData();
     formData.append('email', email);
     formData.append('_replyto', email);
     formData.append('_cc', email);
     formData.append('_to', 'fleuraeatelier2024@gmail.com');
-    formData.append('_format', 'html');
-    formData.append('message', htmlMessage);
     formData.append('name', name);
     formData.append('phone', phone);
     formData.append('address', address);
