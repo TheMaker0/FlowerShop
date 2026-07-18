@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fleurae Atelier </title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,ital@9..144,300..700,0..1&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --moss:#1F2A1E;
+    --paper:#FAF6EE;
+    --rose:#C97B84;
+    --ochre:#C99B4A;
+    --ink:#2A271F;
+    --sage:#8FA37E;
+    --line:rgba(42,39,31,0.14);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    font-weight:400;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    letter-spacing:-0.01em;
+    color:var(--moss);
+  }
+  a{color:inherit; text-decoration:none;}
+  img,svg{display:block; max-width:100%;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
+  ::selection{background:var(--rose); color:var(--paper);}
+
+  /* reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--ochre);
+    outline-offset:3px;
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    background:rgba(250,246,238,0.86);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:84px;
+  }
+  .logo{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Fraunces', serif; font-size:21px; font-weight:600;
+    color:var(--moss);
+  }
+  .logo svg{width:26px; height:26px;}
+  .nav-links{display:flex; gap:36px; font-size:14px; letter-spacing:0.02em;}
+  .nav-links a{position:relative; padding:4px 0; color:var(--ink);}
+  .nav-links a::after{
+    content:''; position:absolute; left:0; bottom:0; width:0; height:1px;
+    background:var(--rose); transition:width 0.3s ease;
+  }
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{
+    border:1px solid var(--moss); padding:10px 22px; border-radius:999px;
+    font-size:13px; letter-spacing:0.03em; transition:background 0.25s ease, color 0.25s ease;
+  }
+  .nav-cta:hover{background:var(--moss); color:var(--paper);}
+  .nav-toggle{display:none;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex; align-items:center;
+    padding-top:84px;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1.1fr 0.9fr; gap:48px; align-items:center;
+    width:100%;
+  }
+  .eyebrow{
+    font-size:13px; letter-spacing:0.16em; text-transform:uppercase;
+    color:var(--rose); margin-bottom:22px; display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{content:''; width:28px; height:1px; background:var(--rose);}
+  .hero h1{
+    font-size:clamp(44px, 6vw, 84px);
+    line-height:0.98;
+    margin-bottom:28px;
+  }
+  .hero h1 em{
+    font-style:italic; color:var(--rose); font-weight:400;
+  }
+  .hero p{
+    max-width:440px; font-size:17px; color:#54503F; margin-bottom:36px;
+  }
+  .btn-row{display:flex; gap:16px; align-items:center; flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--moss); color:var(--paper); padding:15px 30px; border-radius:999px;
+    font-size:14px; letter-spacing:0.02em; display:inline-flex; align-items:center; gap:10px;
+    transition:transform 0.25s ease, background 0.25s ease;
+  }
+  .btn-primary:hover{background:#16201A; transform:translateY(-2px);}
+  .btn-ghost{
+    font-size:14px; display:inline-flex; align-items:center; gap:8px; color:var(--moss);
+    border-bottom:1px solid var(--moss); padding-bottom:3px;
+  }
+
+  .hero-art{position:relative; aspect-ratio:1/1.05; border-radius:24px; overflow:hidden; opacity:0; animation:fadein 1.1s ease forwards 0.2s;}
+  .hero-art img{width:100%; height:100%; object-fit:cover; display:block;}
+  @keyframes fadein{to{opacity:1;}}
+
+  .scroll-cue{
+    position:absolute; bottom:36px; left:32px;
+    display:flex; align-items:center; gap:10px; font-size:12px; color:#6B6754;
+    letter-spacing:0.05em;
+  }
+  .scroll-cue .stem{width:1px; height:34px; background:var(--line); position:relative; overflow:hidden;}
+  .scroll-cue .stem::after{
+    content:''; position:absolute; top:-100%; left:0; width:100%; height:100%;
+    background:var(--rose); animation:drip 2.2s ease-in-out infinite;
+  }
+  @keyframes drip{0%{top:-100%;} 50%{top:0;} 100%{top:100%;}}
+
+  /* ---------- divider ---------- */
+  .divider{
+    display:flex; align-items:center; justify-content:center; padding:64px 0 32px;
+  }
+  .divider svg{width:120px; height:28px; stroke:var(--sage); fill:none; stroke-width:1.3;}
+
+  /* ---------- PHILOSOPHY ---------- */
+  .philosophy{padding:40px 0 100px;}
+  .philosophy-grid{
+    display:grid; grid-template-columns:0.7fr 1fr; gap:64px; align-items:start;
+  }
+  .philosophy h2{font-size:clamp(30px,3.6vw,46px); line-height:1.08; margin-bottom:8px;}
+  .philosophy .num{font-size:13px; color:var(--ochre); letter-spacing:0.1em; margin-bottom:18px; display:block;}
+  .philosophy-copy p{font-size:16px; color:#54503F; max-width:560px; margin-bottom:18px;}
+  .philosophy-copy p:last-child{margin-bottom:0;}
+
+  /* ---------- SEASONAL COLLECTION ---------- */
+  .collection{background:var(--moss); padding:100px 0; color:var(--paper); position:relative;}
+  .collection .section-head{
+    display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:56px; gap:24px; flex-wrap:wrap;
+  }
+  .collection h2{color:var(--paper); font-size:clamp(30px,3.6vw,46px);}
+  .collection .eyebrow{color:var(--ochre);}
+  .collection .eyebrow::before{background:var(--ochre);}
+  .section-head p{max-width:340px; font-size:14px; color:#C9CFC2;}
+
+  .card-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:28px;}
+  .card{
+    background:#243124; border-radius:18px; overflow:hidden; border:1px solid rgba(250,246,238,0.08);
+    transition:transform 0.35s ease, border-color 0.35s ease;
+  }
+  .card:hover{transform:translateY(-6px); border-color:rgba(201,123,132,0.5);}
+  .card-art{
+    aspect-ratio:4/5; overflow:hidden;
+    background:linear-gradient(180deg, rgba(201,123,132,0.12), rgba(143,163,126,0.08));
+  }
+  .card-art img{width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease;}
+  .card:hover .card-art img{transform:scale(1.05);}
+
+  /* ---------- GALLERY / ALBUMS ---------- */
+  .albums{padding:100px 0;}
+  .album-grid{
+    display:grid; grid-template-columns:repeat(4, 1fr); grid-auto-rows:160px; gap:14px;
+  }
+  .album-item{
+    border-radius:14px; overflow:hidden; cursor:pointer; position:relative;
+  }
+  .album-item img{width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease;}
+  .album-item:hover img{transform:scale(1.07);}
+  .album-item.tall{grid-row:span 2;}
+  .album-item.wide{grid-column:span 2;}
+
+  .lightbox{
+    position:fixed; inset:0; background:rgba(31,42,30,0.92); z-index:200;
+    display:none; align-items:center; justify-content:center; padding:40px;
+  }
+  .lightbox.open{display:flex;}
+  .lightbox img{max-width:90vw; max-height:85vh; border-radius:12px;}
+  .lightbox-close{
+    position:absolute; top:28px; right:32px; color:var(--paper); font-size:28px; cursor:pointer;
+    width:44px; height:44px; display:flex; align-items:center; justify-content:center;
+  }
+
+  /* ---------- SOCIAL ---------- */
+  .social-row{display:flex; gap:14px;}
+  .social-icon{
+    width:38px; height:38px; border-radius:50%; border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; transition:background 0.25s ease, border-color 0.25s ease;
+  }
+  .social-icon:hover{background:var(--moss); border-color:var(--moss);}
+  .social-icon:hover svg{stroke:var(--paper); fill:var(--paper);}
+  .social-icon svg{width:17px; height:17px;}
+  footer .social-icon{border-color:rgba(250,246,238,0.18);}
+  footer .social-icon svg{stroke:#D8DCCF;}
+  footer .social-icon:hover{background:var(--rose); border-color:var(--rose);}
+  footer .social-icon:hover svg{stroke:var(--moss);}
+
+  /* ---------- ORDER MODAL ---------- */
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(31,42,30,0.55); z-index:300;
+    display:none; align-items:center; justify-content:center; padding:24px;
+  }
+  .modal-overlay.open{display:flex;}
+  .modal-box{
+    background:var(--paper); border-radius:20px; padding:40px; width:100%; max-width:460px;
+    position:relative; max-height:90vh; overflow-y:auto;
+  }
+  .modal-close{
+    position:absolute; top:18px; right:18px; width:32px; height:32px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:18px; color:var(--moss);
+  }
+  .modal-close:hover{background:var(--line);}
+  .modal-box h3{font-size:24px; margin-bottom:6px;}
+  .modal-box .sub{font-size:13.5px; color:#6B6754; margin-bottom:24px;}
+  .field{margin-bottom:16px;}
+  .field label{display:block; font-size:12.5px; letter-spacing:0.03em; color:var(--moss); margin-bottom:6px;}
+  .field input, .field textarea, .field select{
+    width:100%; border:1px solid var(--line); border-radius:10px; padding:11px 14px;
+    font-family:'Work Sans', sans-serif; font-size:14px; background:#fff; color:var(--ink);
+  }
+  .field input:focus, .field textarea:focus, .field select:focus{
+    outline:none; border-color:var(--rose);
+  }
+  .field textarea{resize:vertical; min-height:80px;}
+  .modal-box .btn-primary{width:100%; justify-content:center; border:none; cursor:pointer; font-family:'Work Sans', sans-serif;}
+  .form-note{font-size:11.5px; color:#928E7A; margin-top:12px; text-align:center;}
+  .form-success{
+    display:none; text-align:center; padding:20px 0;
+  }
+  .form-success.show{display:block;}
+  .form-success svg{width:48px; height:48px; margin:0 auto 16px; stroke:var(--sage);}
+  .card-body{padding:22px 22px 26px;}
+  .card-body .tag{font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--rose); margin-bottom:8px; display:block;}
+  .card-body h3{color:var(--paper); font-size:21px; font-weight:500; margin-bottom:8px;}
+  .card-body p{font-size:13.5px; color:#ADB39E; margin-bottom:16px;}
+  .card-foot{display:flex; justify-content:space-between; align-items:center; font-size:14px;}
+  .card-foot .price{font-family:'Fraunces', serif; font-size:17px; color:var(--ochre);}
+  .card-foot a{display:flex; align-items:center; gap:6px; color:var(--paper); opacity:0.8;}
+  .card-foot a:hover{opacity:1;}
+
+  /* ---------- PROCESS (stem timeline) ---------- */
+  .process{padding:110px 0;}
+  .process .section-head{margin-bottom:64px; max-width:560px;}
+  .process h2{font-size:clamp(30px,3.6vw,46px);}
+  .stem-line{
+    position:relative; display:grid; grid-template-columns:repeat(4,1fr); gap:0;
+  }
+  .stem-line::before{
+    content:''; position:absolute; top:13px; left:0; right:0; height:1px; background:var(--line);
+  }
+  .stem-step{position:relative; padding-top:48px; padding-right:24px;}
+  .stem-step .bud{
+    position:absolute; top:0; left:0; width:27px; height:27px; border-radius:50%;
+    background:var(--paper); border:1.5px solid var(--sage); display:flex; align-items:center; justify-content:center;
+  }
+  .stem-step .bud span{width:7px; height:7px; border-radius:50%; background:var(--rose);}
+  .stem-step h3{font-size:18px; font-weight:500; margin-bottom:10px;}
+  .stem-step p{font-size:14px; color:#5C5848;}
+
+  /* ---------- VISIT ---------- */
+  .visit{padding:100px 0 120px;}
+  .visit-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center;
+    background:#F1EADA; border-radius:24px; padding:64px; position:relative; overflow:hidden;
+  }
+  .visit-grid::after{
+    content:''; position:absolute; right:-60px; bottom:-60px; width:220px; height:220px;
+    border-radius:50%; background:radial-gradient(circle, rgba(201,123,132,0.18), transparent 70%);
+  }
+  .visit h2{font-size:clamp(28px,3.4vw,40px); margin-bottom:20px;}
+  .visit-detail{display:flex; gap:14px; margin-bottom:20px; font-size:14.5px;}
+  .visit-detail strong{display:block; font-weight:500; color:var(--moss); margin-bottom:2px;}
+  .visit-detail p{color:#5C5848;}
+  .visit-art svg{width:100%;}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--moss); color:#C9CFC2; padding:56px 0 32px;}
+  .footer-grid{display:flex; justify-content:space-between; flex-wrap:wrap; gap:32px; margin-bottom:40px;}
+  .footer-brand{font-family:'Fraunces', serif; font-size:22px; color:var(--paper); max-width:280px;}
+  .footer-brand p{font-size:13px; color:#9CA28F; margin-top:10px; font-family:'Work Sans', sans-serif;}
+  .footer-col h4{font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:#9CA28F; margin-bottom:14px; font-family:'Work Sans', sans-serif; font-weight:500;}
+  .footer-col a{display:block; font-size:14px; margin-bottom:10px; color:#D8DCCF;}
+  .footer-col a:hover{color:var(--ochre);}
+  .footer-bottom{
+    border-top:1px solid rgba(250,246,238,0.1); padding-top:24px; font-size:12.5px;
+    display:flex; justify-content:space-between; color:#828867; flex-wrap:wrap; gap:12px;
+  }
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity 0.8s ease, transform 0.8s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:920px){
+    .nav-links{display:none;}
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-art{order:-1; max-width:340px; margin:0 auto;}
+    .philosophy-grid{grid-template-columns:1fr; gap:28px;}
+    .card-grid{grid-template-columns:1fr 1fr;}
+    .stem-line{grid-template-columns:1fr 1fr; row-gap:40px;}
+    .visit-grid{grid-template-columns:1fr; padding:40px 28px;}
+    .footer-grid{flex-direction:column;}
+  }
+  @media (max-width:600px){
+    .card-grid{grid-template-columns:1fr;}
+    .stem-line{grid-template-columns:1fr;}
+    .wrap{padding:0 22px;}
+    .album-grid{grid-template-columns:1fr 1fr; grid-auto-rows:130px;}
+    .album-item.wide{grid-column:span 2;}
+    .modal-box{padding:28px 22px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo">
+      <svg viewBox="0 0 24 24"><path d="M12 2C12 2 8 6 8 10C8 12.2 9.8 14 12 14C14.2 14 16 12.2 16 10C16 6 12 2 12 2Z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M12 14V22" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
+      Fleurae Atelier
+    </div>
+    <div class="nav-links">
+      <a href="#philosophy">Studio</a>
+      <a href="collections.html">Collection</a>
+      <a href="#albums">Albums</a>
+      <a href="#process">Process</a>
+      <a href="#visit">Visit</a>
+    </div>
+    <div style="display:flex; align-items:center; gap:18px;">
+      <div class="social-row">
+        <a class="social-icon" href="https://facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--moss)" stroke-width="1.6"><path d="M15 8h-2a2 2 0 0 0-2 2v3H9v3h2v6h3v-6h2.2l.8-3H14v-2a1 1 0 0 1 1-1h2V8Z"/></svg>
+        </a>
+        <a class="social-icon" href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--moss)" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.4"/><circle cx="16.6" cy="7.4" r="0.6" fill="var(--moss)"/></svg>
+        </a>
+      </div>
+      <button class="nav-cta" onclick="openOrderModal('General inquiry')">Order flowers</button>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Floral atelier, est. 2016</span>
+      <h1>Arrangements that <em>breathe</em> like a garden left wild.</h1>
+      <p>We cut, gather, and bind by hand each morning — pairing unruly seasonal stems with quiet, considered form. No two bouquets repeat.</p>
+      <div class="btn-row">
+        <a href="collections.html" class="btn-primary">View this week's stems →</a>
+        <a href="#process" class="btn-ghost">How we work</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <img src="./img/1.png" alt="Fresh seasonal flower arrangement at Marigold and Stem studio">
+    </div>
+  </div>
+  <div class="scroll-cue"><span class="stem"></span>Scroll to wander in</div>
+</section>
+
+<div class="divider" aria-hidden="true">
+  <svg viewBox="0 0 120 28"><path d="M0 14 Q 20 2 40 14 T 80 14 T 120 14"/></svg>
+</div>
+
+<section class="philosophy wrap" id="philosophy">
+  <div class="philosophy-grid">
+    <div class="reveal">
+      <span class="num">01 — The studio</span>
+      <h2>Grown nearby, gathered early, arranged the same day.</h2>
+    </div>
+    <div class="philosophy-copy reveal">
+      <p>Most flower shops buy from a wholesale cooler that's already days old. We work the opposite way — driving out to three small regional growers before sunrise, choosing stems by hand, and arranging them while the dew is still on the petals.</p>
+      <p>What this means for you: looser, more honest bouquets that lean and curve the way they actually grew, in colors that shift with the season rather than a catalogue.</p>
+      <p>It also means we sell out. Often. We'd rather run short on a Tuesday than pad the shelves with flowers flown in from somewhere else.</p>
+    </div>
+  </div>
+</section>
+
+<section class="collection" id="collection">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow">This week's cut</span>
+        <h2>The seasonal collection</h2>
+      </div>
+      <p>Updated every Monday based on what the growers have ready. Quantities are limited — arrangements are made to order, not stockpiled.</p>
+    </div>
+    <div class="card-grid">
+
+      <div class="card reveal">
+        <div class="card-art">
+          <img src="./634649874_122237700728106834_2540848965040299100_n.jpg" alt="The Hollow Lane bouquet — blush garden roses and trailing jasmine">
+        </div>
+        <div class="card-body">
+          <span class="tag">Garden rose</span>
+          <h3>The Hollow Lane</h3>
+          <p>Blush garden roses, dusty miller, trailing jasmine vine.</p>
+          <div class="card-foot">
+            <span class="price">$68</span>
+            <a href="#" onclick="openOrderModal('The Hollow Lane — $68'); return false;">Reserve <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-art">
+          <img src="./656198264_122241158918106834_4925264798603140544_n.jpg" alt="Low Meadow bouquet — wild gathered cosmos and grasses">
+        </div>
+        <div class="card-body">
+          <span class="tag">Wild gathered</span>
+          <h3>Low Meadow</h3>
+          <p>Cosmos, queen anne's lace, and bunny tail grass, loosely tied.</p>
+          <div class="card-foot">
+            <span class="price">$54</span>
+            <a href="#" onclick="openOrderModal('Low Meadow — $54'); return false;">Reserve <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-art">
+          <img src="./725627054_122249777420106834_7674802632669329635_n.jpg" alt="Ember and Smoke bouquet — amber dahlias and ranunculus">
+        </div>
+        <div class="card-body">
+          <span class="tag">Statement</span>
+          <h3>Ember &amp; Smoke</h3>
+          <p>Dahlias and ranunculus in burnt amber, smoked eucalyptus.</p>
+          <div class="card-foot">
+            <span class="price">$92</span>
+            <a href="#" onclick="openOrderModal('Ember &amp; Smoke — $92'); return false;">Reserve <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="albums wrap" id="albums">
+  <div class="section-head reveal">
+    <span class="eyebrow">From the studio floor</span>
+    <h2>Flower albums</h2>
+  </div>
+  <div class="album-grid">
+    <div class="album-item tall reveal" onclick="openLightbox(this)"><img src="https://placehold.co/400x680/F1EADA/C97B84?text=Replace+1" alt="Studio photo 1"></div>
+    <div class="album-item reveal" onclick="openLightbox(this)"><img src="https://placehold.co/400x320/F1EADA/8FA37E?text=Replace+2" alt="Studio photo 2"></div>
+    <div class="album-item wide reveal" onclick="openLightbox(this)"><img src="https://placehold.co/820x320/F1EADA/C99B4A?text=Replace+3" alt="Studio photo 3"></div>
+    <div class="album-item reveal" onclick="openLightbox(this)"><img src="https://placehold.co/400x320/F1EADA/C97B84?text=Replace+4" alt="Studio photo 4"></div>
+    <div class="album-item reveal" onclick="openLightbox(this)"><img src="https://placehold.co/400x320/F1EADA/8FA37E?text=Replace+5" alt="Studio photo 5"></div>
+    <div class="album-item tall reveal" onclick="openLightbox(this)"><img src="https://placehold.co/400x680/F1EADA/C99B4A?text=Replace+6" alt="Studio photo 6"></div>
+    <div class="album-item wide reveal" onclick="openLightbox(this)"><img src="https://placehold.co/820x320/F1EADA/8FA37E?text=Replace+7" alt="Studio photo 7"></div>
+  </div>
+</section>
+
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-close" onclick="closeLightbox()" role="button" aria-label="Close image" tabindex="0">✕</div>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<section class="process wrap" id="process">
+  <div class="section-head reveal">
+    <span class="eyebrow">From field to door</span>
+    <h2>How an arrangement comes together</h2>
+  </div>
+  <div class="stem-line">
+    <div class="stem-step reveal"><div class="bud"><span></span></div><h3>Pre-dawn cut</h3><p>We visit growers before 6am, choosing stems still cool from the night.</p></div>
+    <div class="stem-step reveal"><div class="bud"><span></span></div><h3>Conditioning</h3><p>Each stem rests in filtered water for two hours so it opens true.</p></div>
+    <div class="stem-step reveal"><div class="bud"><span></span></div><h3>Hand-tied</h3><p>Arranged spiral-style by one florist, start to finish — never assembly line.</p></div>
+    <div class="stem-step reveal"><div class="bud"><span></span></div><h3>Same-day delivery</h3><p>Out the door within hours of being cut, not days.</p></div>
+  </div>
+</section>
+
+<section class="visit wrap" id="visit">
+  <div class="visit-grid">
+    <div class="reveal">
+      <span class="eyebrow">Visit the studio</span>
+      <h2>Come smell something before you buy it.</h2>
+      <div class="visit-detail">
+        <div>
+          <strong>Address</strong>
+          <p>14 Linden Row, behind the old print shop</p>
+        </div>
+      </div>
+      <div class="visit-detail">
+        <div>
+          <strong>Hours</strong>
+          <p>Tuesday–Saturday, 8am–4pm. Closed Sunday &amp; Monday to go cut more flowers.</p>
+        </div>
+      </div>
+      <div class="visit-detail">
+        <div>
+          <strong>Same-day orders</strong>
+          <p>Call by 11am for delivery the same afternoon.</p>
+        </div>
+      </div>
+      <a href="#" class="btn-primary" style="margin-top:8px;" onclick="openOrderModal('General inquiry'); return false;">Reserve this week's bouquet →</a>
+    </div>
+    <div class="visit-art reveal">
+      <img src="https://placehold.co/600x520/F1EADA/1F2A1E?text=Replace+with+studio+photo" alt="Marigold and Stem studio interior" style="border-radius:16px;">
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        Marigold &amp; Stem
+        <p>A small floral atelier working in season, by hand, every day.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Studio</h4>
+        <a href="#philosophy">Our approach</a>
+        <a href="#process">How we work</a>
+        <a href="collections.html">This week's stems</a>
+      </div>
+      <div class="footer-col">
+        <h4>Follow</h4>
+        <div class="social-row">
+          <a class="social-icon" href="https://facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#D8DCCF" stroke-width="1.6"><path d="M15 8h-2a2 2 0 0 0-2 2v3H9v3h2v6h3v-6h2.2l.8-3H14v-2a1 1 0 0 1 1-1h2V8Z"/></svg>
+          </a>
+          <a class="social-icon" href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#D8DCCF" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.4"/><circle cx="16.6" cy="7.4" r="0.6" fill="#D8DCCF"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Marigold &amp; Stem Floral Atelier</span>
+      <span>Cut fresh, arranged daily</span>
+    </div>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="order-modal">
+  <div class="modal-box">
+    <div class="modal-close" onclick="closeOrderModal()" role="button" aria-label="Close form" tabindex="0">✕</div>
+
+    <div id="order-form-view">
+      <h3>Reserve your bouquet</h3>
+      <p class="sub" id="order-item-label">General inquiry</p>
+      <form id="order-form">
+        <div class="field">
+          <label for="of-name">Your name</label>
+          <input type="text" id="of-name" required>
+        </div>
+        <div class="field">
+          <label for="of-email">Email address</label>
+          <input type="email" id="of-email" required>
+        </div>
+        <div class="field">
+          <label for="of-date">Preferred pickup or delivery date</label>
+          <input type="date" id="of-date">
+        </div>
+        <div class="field">
+          <label for="of-message">Anything we should know?</label>
+          <textarea id="of-message" placeholder="Colors you love, occasion, delivery address..."></textarea>
+        </div>
+        <button type="submit" class="btn-primary">Send request →</button>
+        <p class="form-note">This opens your email app with the request pre-filled, addressed to hello@marigoldstem.studio.</p>
+      </form>
+    </div>
+
+    <div class="form-success" id="order-success-view">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5L16 9"/></svg>
+      <h3>Request ready to send</h3>
+      <p class="sub">Your email app should have opened with the details filled in. Just hit send and we'll reply within the day.</p>
+      <button class="btn-primary" onclick="closeOrderModal()">Done</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  var els = document.querySelectorAll('.reveal');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:0.15});
+  els.forEach(function(el){ io.observe(el); });
+
+  function openOrderModal(itemLabel){
+    document.getElementById('order-item-label').textContent = itemLabel;
+    document.getElementById('order-form-view').style.display = 'block';
+    document.getElementById('order-success-view').classList.remove('show');
+    document.getElementById('order-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeOrderModal(){
+    document.getElementById('order-modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('order-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    var name = document.getElementById('of-name').value;
+    var email = document.getElementById('of-email').value;
+    var date = document.getElementById('of-date').value;
+    var message = document.getElementById('of-message').value;
+    var item = document.getElementById('order-item-label').textContent;
+
+    var subject = 'Bouquet request: ' + item;
+    var body =
+      'Name: ' + name + '\n' +
+      'Email: ' + email + '\n' +
+      'Preferred date: ' + (date || 'Not specified') + '\n\n' +
+      'Notes:\n' + (message || 'None') ;
+
+    var mailto = 'mailto:hello@marigoldstem.studio'
+      + '?subject=' + encodeURIComponent(subject)
+      + '&body=' + encodeURIComponent(body);
+
+    window.location.href = mailto;
+
+    document.getElementById('order-form-view').style.display = 'none';
+    document.getElementById('order-success-view').classList.add('show');
+  });
+
+  function openLightbox(el){
+    var src = el.querySelector('img').src;
+    var alt = el.querySelector('img').alt;
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox-img').alt = alt;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox(){
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){ closeOrderModal(); closeLightbox(); }
+  });
+  document.getElementById('order-modal').addEventListener('click', function(e){
+    if(e.target === this) closeOrderModal();
+  });
+  document.getElementById('lightbox').addEventListener('click', function(e){
+    if(e.target === this) closeLightbox();
+  });
+</script>
+
+</body>
+</html>
