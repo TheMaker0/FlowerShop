@@ -87,7 +87,29 @@
     font-size:13px; letter-spacing:0.03em; transition:background 0.25s ease, color 0.25s ease;
   }
   .nav-cta:hover{background:var(--moss); color:var(--paper);}
-  .nav-toggle{display:none;}
+  .nav-toggle{
+    display:none;
+    border:none;
+    background:none;
+    cursor:pointer;
+    width:40px;
+    height:40px;
+    padding:8px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+  }
+  .nav-toggle span{
+    display:block;
+    width:100%;
+    height:2px;
+    background:var(--moss);
+    border-radius:99px;
+    transition:transform 0.3s ease, opacity 0.3s ease;
+  }
+  .nav-toggle.open span:nth-child(1){transform:translateY(8px) rotate(45deg);}
+  .nav-toggle.open span:nth-child(2){opacity:0;}
+  .nav-toggle.open span:nth-child(3){transform:translateY(-8px) rotate(-45deg);}
 
   /* ---------- HERO ---------- */
   .hero{
@@ -131,6 +153,7 @@
 
   .hero-art{position:relative; aspect-ratio:1/1.05; border-radius:24px; overflow:hidden; opacity:0; animation:fadein 1.1s ease forwards 0.2s;}
   .hero-art img{width:100%; height:100%; object-fit:cover; display:block;}
+  .hero .reveal{opacity:0; transform:translateY(24px);}
   @keyframes fadein{to{opacity:1;}}
 
   .scroll-cue{
@@ -314,14 +337,25 @@
   }
 
   /* ---------- reveal on scroll ---------- */
-  .reveal{opacity:0; transform:translateY(24px); transition:opacity 0.8s ease, transform 0.8s ease;}
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1);}
   .reveal.in{opacity:1; transform:translateY(0);}
+  .hero h1, .hero p, .eyebrow, .section-head, .card, .album-item, .stem-step, .visit-detail, .footer-col a{
+    will-change:transform, opacity;
+  }
+  .nav-links a, .btn-primary, .nav-cta{
+    transition:transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+  }
+  .nav-links a:hover, .btn-primary:hover, .nav-cta:hover{transform:translateY(-2px);}
 
   /* ---------- responsive ---------- */
   @media (max-width:920px){
-    .nav-links{display:none;}
+    .nav-toggle{display:flex;}
+    .nav-links{display:none; position:fixed; top:84px; left:0; right:0; background:rgba(250,246,238,0.98); flex-direction:column; padding:20px 28px; gap:18px; box-shadow:0 24px 60px rgba(31,42,30,0.12);}
+    .nav-links.open{display:flex;}
+    .nav-links a{font-size:17px; padding:12px 0;}
     .hero-grid{grid-template-columns:1fr;}
     .hero-art{order:-1; max-width:340px; margin:0 auto;}
+    .hero{padding-top:96px;}
     .philosophy-grid{grid-template-columns:1fr; gap:28px;}
     .card-grid{grid-template-columns:1fr 1fr;}
     .stem-line{grid-template-columns:1fr 1fr; row-gap:40px;}
@@ -331,10 +365,12 @@
   @media (max-width:600px){
     .card-grid{grid-template-columns:1fr;}
     .stem-line{grid-template-columns:1fr;}
-    .wrap{padding:0 22px;}
+    .wrap{padding:0 18px;}
     .album-grid{grid-template-columns:1fr 1fr; grid-auto-rows:130px;}
     .album-item.wide{grid-column:span 2;}
-    .modal-box{padding:28px 22px;}
+    .visit-grid{padding:28px 18px;}
+    .footer-grid{gap:24px;}
+    .modal-box{padding:28px 18px;}
   }
 </style>
 </head>
@@ -346,6 +382,11 @@
       <svg viewBox="0 0 24 24"><path d="M12 2C12 2 8 6 8 10C8 12.2 9.8 14 12 14C14.2 14 16 12.2 16 10C16 6 12 2 12 2Z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M12 14V22" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
       Fleurae Atelier
     </a>
+    <button class="nav-toggle" aria-expanded="false" aria-label="Open menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
     <div class="nav-links">
       <a href="#philosophy">Studio</a>
       <a href="collections.html">Collection</a>
@@ -369,7 +410,7 @@
 
 <section class="hero">
   <div class="wrap hero-grid">
-    <div>
+    <div class="reveal">
       <span class="eyebrow">Floral atelier, est. 2016</span>
       <h1>Arrangements that <em>breathe</em> like a garden left wild.</h1>
       <p>We cut, gather, and bind by hand each morning — pairing unruly seasonal stems with quiet, considered form. No two bouquets repeat.</p>
@@ -607,6 +648,25 @@
     });
   }, {threshold:0.15});
   els.forEach(function(el){ io.observe(el); });
+
+  var navToggle = document.querySelector('.nav-toggle');
+  var navLinks = document.querySelector('.nav-links');
+  if(navToggle && navLinks){
+    navToggle.addEventListener('click', function(){
+      var isOpen = navLinks.classList.toggle('open');
+      navToggle.classList.toggle('open', isOpen);
+      navToggle.setAttribute('aria-expanded', isOpen);
+    });
+    document.querySelectorAll('.nav-links a').forEach(function(link){
+      link.addEventListener('click', function(){
+        if(navLinks.classList.contains('open')){
+          navLinks.classList.remove('open');
+          navToggle.classList.remove('open');
+          navToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  }
 
   function openOrderModal(itemLabel){
     document.getElementById('order-item-label').textContent = itemLabel;
