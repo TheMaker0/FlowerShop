@@ -114,21 +114,20 @@
           background 0.25s ease,
           color 0.25s ease;
       }
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .nav-actions .cart-btn,
+      .nav-actions .nav-cta,
+      .nav-actions .admin-status,
+      .nav-actions .admin-add-btn {
+        white-space: nowrap;
+      }
       .nav-cta:hover {
         background: var(--moss);
         color: var(--paper);
-      }
-      .admin-trigger {
-        position: absolute;
-        top: 8px;
-        right: 8px;
-        width: 24px;
-        height: 24px;
-        opacity: 0;
-        border: none;
-        background: transparent;
-        cursor: pointer;
-        z-index: 100;
       }
       .admin-status {
         display: inline-flex;
@@ -1378,12 +1377,31 @@
           flex-wrap: wrap;
           justify-content: space-between;
           gap: 14px;
+          height: auto;
+          padding: 12px 18px;
         }
         .nav-links {
           display: none;
         }
+        .nav-actions {
+          flex-wrap: wrap;
+          justify-content: flex-end;
+          gap: 10px;
+          width: auto;
+          align-items: center;
+        }
+        .nav-actions > * {
+          flex: none;
+          min-width: auto;
+        }
         .admin-add-btn {
-          width: 100%;
+          width: auto;
+          justify-content: center;
+        }
+        .cart-btn {
+          justify-content: center;
+        }
+        .nav-cta {
           justify-content: center;
         }
         .cart-panel {
@@ -1500,14 +1518,13 @@
           <a href="index.html#process">Process</a>
           <a href="index.html#visit">Visit</a>
         </div>
-        <div style="display: flex; align-items: center; gap: 18px">
+        <div class="nav-actions">
           <button class="cart-btn" onclick="openCart()">
             <span>🛒</span> Cart
             <div class="cart-badge" id="cart-badge" style="display: none">
               0
             </div>
           </button>
-          <button id="admin-trigger" class="admin-trigger" aria-hidden="true" onclick="openAdminLogin()"></button>
           <button id="admin-add-item-btn" class="nav-cta admin-add-btn" type="button" onclick="openAdminEdit(-1)">Add item</button>
           <span class="admin-status" id="admin-status" style="display:none;" onclick="logoutAdmin()" title="Click to logout">Admin mode</span>
           <a
