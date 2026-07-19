@@ -196,6 +196,7 @@
 
   .card-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:28px;}
   .card{
+    position:relative;
     background:#243124; border-radius:18px; overflow:hidden; border:1px solid rgba(250,246,238,0.08);
     transition:transform 0.35s ease, border-color 0.35s ease;
   }
@@ -204,6 +205,17 @@
     aspect-ratio:4/5; overflow:hidden;
     background:linear-gradient(180deg, rgba(201,123,132,0.12), rgba(143,163,126,0.08));
   }
+  .card-badge{
+    position:absolute; top:18px; left:18px;
+    background:rgba(201,155,74,0.95);
+    color:var(--moss);
+    font-size:11px; letter-spacing:0.12em; text-transform:uppercase;
+    padding:8px 12px; border-radius:999px;
+    z-index:1;
+    box-shadow:0 14px 28px rgba(0,0,0,0.18);
+  }
+  .card.best-seller .tag{color:#F0E7C0;}
+  .card.best-seller .card-foot a{opacity:1;}
   .card-art img{width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease;}
   .card:hover .card-art img{transform:scale(1.05);}
 
@@ -255,6 +267,23 @@
     background:var(--paper); border-radius:20px; padding:40px; width:100%; max-width:460px;
     position:relative; max-height:90vh; overflow-y:auto;
   }
+  .cart-overlay{
+    position:fixed; inset:0; background:rgba(31,42,30,0.7); z-index:310;
+    display:none; align-items:center; justify-content:center; padding:24px;
+  }
+  .cart-overlay.open{display:flex;}
+  .cart-panel{
+    width:100%; max-width:520px; background:var(--paper); border-radius:20px;
+    padding:28px; box-shadow:0 32px 80px rgba(0,0,0,0.18);
+  }
+  .cart-panel-header{display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;}
+  .cart-panel-header h3{font-size:24px; margin:0;}
+  .cart-items{display:grid; gap:12px; margin-bottom:18px;}
+  .cart-item{display:flex; justify-content:space-between; gap:12px; padding:14px 16px; border:1px solid rgba(31,42,30,0.08); border-radius:16px; background:#F7F4EE;}
+  .cart-item button{border:none; background:none; color:var(--moss); cursor:pointer; font-size:13px; text-decoration:underline;}
+  .cart-summary{display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;}
+  .cart-summary span{font-size:14px; color:#54503F;}
+  .cart-empty{color:#54503F; font-size:15px;}
   .modal-close{
     position:absolute; top:18px; right:18px; width:32px; height:32px; border-radius:50%;
     display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:18px; color:var(--moss);
@@ -283,9 +312,12 @@
   .card-body .tag{font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--rose); margin-bottom:8px; display:block;}
   .card-body h3{color:var(--paper); font-size:21px; font-weight:500; margin-bottom:8px;}
   .card-body p{font-size:13.5px; color:#ADB39E; margin-bottom:16px;}
-  .card-foot{display:flex; justify-content:space-between; align-items:center; font-size:14px;}
+  .card-foot{display:flex; justify-content:space-between; align-items:center; gap:12px; font-size:14px; flex-wrap:wrap;}
   .card-foot .price{font-family:'Fraunces', serif; font-size:17px; color:var(--ochre);}
   .card-foot a{display:flex; align-items:center; gap:6px; color:var(--paper); opacity:0.8;}
+  .card-actions{display:flex; gap:10px; flex-wrap:wrap;}
+  .card-actions a{font-size:13px; padding:8px 12px; border:1px solid rgba(250,246,238,0.16); border-radius:999px; transition:background 0.2s ease, opacity 0.2s ease;}
+  .card-actions a:hover{background:rgba(250,246,238,0.08); opacity:1;}
   .card-foot a:hover{opacity:1;}
 
   /* ---------- PROCESS (stem timeline) ---------- */
@@ -403,6 +435,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="var(--moss)" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.4"/><circle cx="16.6" cy="7.4" r="0.6" fill="var(--moss)"/></svg>
         </a>
       </div>
+      <button class="nav-cta" onclick="openCart()">Cart (<span id="cart-count">0</span>)</button>
       <button class="nav-cta" onclick="openOrderModal('General inquiry')">Order flowers</button>
     </div>
   </nav>
@@ -465,12 +498,16 @@
           <p>Blush garden roses, dusty miller, trailing jasmine vine.</p>
           <div class="card-foot">
             <span class="price">₱268</span>
-            <a href="#" onclick="openOrderModal('The Hollow Lane — ₱268'); return false;">Reserve <span aria-hidden="true">→</span></a>
+            <div class="card-actions">
+              <a href="#" onclick="addToCart('The Hollow Lane — ₱268'); return false;">Add to cart</a>
+              <a href="#" onclick="openOrderModal('The Hollow Lane — ₱268'); return false;">Buy now</a>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="card reveal">
+      <div class="card reveal best-seller">
+        <div class="card-badge">Best seller</div>
         <div class="card-art">
           <img src="./img/3.png" alt="Low Meadow bouquet — wild gathered cosmos and grasses">
         </div>
@@ -480,7 +517,10 @@
           <p>Cosmos, queen anne's lace, and bunny tail grass, loosely tied.</p>
           <div class="card-foot">
             <span class="price">₱154</span>
-            <a href="#" onclick="openOrderModal('Low Meadow — ₱154'); return false;">Reserve <span aria-hidden="true">→</span></a>
+            <div class="card-actions">
+              <a href="#" onclick="addToCart('Low Meadow — ₱154'); return false;">Add to cart</a>
+              <a href="#" onclick="openOrderModal('Low Meadow — ₱154'); return false;">Buy now</a>
+            </div>
           </div>
         </div>
       </div>
@@ -495,7 +535,10 @@
           <p>Dahlias and ranunculus in burnt amber, smoked eucalyptus.</p>
           <div class="card-foot">
             <span class="price">₱92</span>
-            <a href="#" onclick="openOrderModal('Ember &amp; Smoke — ₱392'); return false;">Reserve <span aria-hidden="true">→</span></a>
+            <div class="card-actions">
+              <a href="#" onclick="addToCart('Ember &amp; Smoke — ₱92'); return false;">Add to cart</a>
+              <a href="#" onclick="openOrderModal('Ember &amp; Smoke — ₱92'); return false;">Buy now</a>
+            </div>
           </div>
         </div>
       </div>
@@ -549,19 +592,19 @@
       <div class="visit-detail">
         <div>
           <strong>Address</strong>
-          <p>14 Linden Row, behind the old print shop</p>
+          <p>Sto. Tomas, San Jacinto, Pangasinan</p>
         </div>
       </div>
       <div class="visit-detail">
         <div>
           <strong>Hours</strong>
-          <p>Tuesday–Saturday, 8am–4pm. Closed Sunday &amp; Monday to go cut more flowers.</p>
+          <p>Monday–Saturday</p>
         </div>
       </div>
       <div class="visit-detail">
         <div>
           <strong>Same-day orders</strong>
-          <p>Call by 11am for delivery the same afternoon.</p>
+          <p>1–2 days to process your order as each bouquet is carefully handmade</p>
         </div>
       </div>
       <a href="#" class="btn-primary" style="margin-top:8px;" onclick="openOrderModal('General inquiry'); return false;">Reserve this week's bouquet →</a>
@@ -604,6 +647,22 @@
   </div>
 </footer>
 
+<div class="cart-overlay" id="cart-overlay">
+  <div class="cart-panel">
+    <div class="cart-panel-header">
+      <h3>Your cart</h3>
+      <button class="modal-close" onclick="closeCart()" type="button" aria-label="Close cart">✕</button>
+    </div>
+    <div class="cart-items" id="cart-items">
+      <p class="cart-empty">Your cart is empty.</p>
+    </div>
+    <div class="cart-summary">
+      <span id="cart-total-items">0 items</span>
+      <button class="btn-primary" type="button" onclick="checkoutCart()">Checkout →</button>
+    </div>
+  </div>
+</div>
+
 <div class="modal-overlay" id="order-modal">
   <div class="modal-box">
     <div class="modal-close" onclick="closeOrderModal()" role="button" aria-label="Close form" tabindex="0">✕</div>
@@ -611,25 +670,27 @@
     <div id="order-form-view">
       <h3>Reserve your bouquet</h3>
       <p class="sub" id="order-item-label">General inquiry</p>
-      <form id="order-form">
+      <form id="order-form" action="https://formspree.io/f/xvzeavor" method="POST">
+        <input type="hidden" name="item" id="of-item" value="General inquiry">
+        <input type="hidden" name="_subject" id="of-subject" value="Bouquet request from Fleurae Atelier">
         <div class="field">
           <label for="of-name">Your name</label>
-          <input type="text" id="of-name" required>
+          <input type="text" id="of-name" name="name" required>
         </div>
         <div class="field">
           <label for="of-email">Email address</label>
-          <input type="email" id="of-email" required>
+          <input type="email" id="of-email" name="email" required>
         </div>
         <div class="field">
           <label for="of-date">Preferred pickup or delivery date</label>
-          <input type="date" id="of-date">
+          <input type="date" id="of-date" name="preferred_date">
         </div>
         <div class="field">
           <label for="of-message">Anything we should know?</label>
-          <textarea id="of-message" placeholder="Colors you love, occasion, delivery address..."></textarea>
+          <textarea id="of-message" name="message" placeholder="Colors you love, occasion, delivery address..."></textarea>
         </div>
         <button type="submit" class="btn-primary">Send request →</button>
-        <p class="form-note">This opens your email app with the request pre-filled, addressed to fleurdelumiere16@gmail.com.</p>
+        <p class="form-note">This request is sent through Formspree. Replace <code>{YOUR_FORM_ID}</code> in the form action with your actual Formspree form ID.</p>
       </form>
     </div>
 
@@ -685,29 +746,85 @@
 
   document.getElementById('order-form').addEventListener('submit', function(e){
     e.preventDefault();
-    var name = document.getElementById('of-name').value;
-    var email = document.getElementById('of-email').value;
-    var date = document.getElementById('of-date').value;
-    var message = document.getElementById('of-message').value;
+    var form = e.target;
     var item = document.getElementById('order-item-label').textContent;
+    document.getElementById('of-item').value = item;
+    document.getElementById('of-subject').value = 'Bouquet request: ' + item;
 
-    var subject = 'Bouquet request: ' + item;
-    var body =
-      'Name: ' + name + '\n' +
-      'Email: ' + email + '\n' +
-      'Preferred date: ' + (date || 'Not specified') + '\n\n' +
-      'Notes:\n' + (message || 'None') ;
+    if(form.action.includes('{YOUR_FORM_ID}')){
+      alert('Please replace {YOUR_FORM_ID} in the form action with your actual Formspree form ID.');
+      return;
+    }
 
-    var mailto = 'mailto:fleurdelumiere16@gmail.com'
-      + '?subject=' + encodeURIComponent(subject)
-      + '&body=' + encodeURIComponent(body);
-
-    window.location.href = mailto;
-
-    document.getElementById('order-form-view').style.display = 'none';
-    document.getElementById('order-success-view').classList.add('show');
+    var formData = new FormData(form);
+    fetch(form.action, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .then(function(response){
+      if(response.ok){
+        document.getElementById('order-form-view').style.display = 'none';
+        document.getElementById('order-success-view').classList.add('show');
+      } else {
+        return response.json().then(function(json){
+          var message = (json && json.error) ? json.error : 'Unable to send the request. Please check your Formspree setup.';
+          alert(message);
+        });
+      }
+    })
+    .catch(function(){
+      alert('Network error. Please check your connection and try again.');
+    });
   });
 
+  var cart = [];
+  function updateCart(){
+    document.getElementById('cart-count').textContent = cart.length;
+    var itemsContainer = document.getElementById('cart-items');
+    var totalLabel = document.getElementById('cart-total-items');
+    itemsContainer.innerHTML = '';
+    if(cart.length === 0){
+      itemsContainer.innerHTML = '<p class="cart-empty">Your cart is empty.</p>';
+      totalLabel.textContent = '0 items';
+      return;
+    }
+    cart.forEach(function(item, index){
+      var itemRow = document.createElement('div');
+      itemRow.className = 'cart-item';
+      itemRow.innerHTML = '<span>' + item + '</span><button type="button" onclick="removeFromCart(' + index + ')">Remove</button>';
+      itemsContainer.appendChild(itemRow);
+    });
+    totalLabel.textContent = cart.length + ' item' + (cart.length === 1 ? '' : 's');
+  }
+  function addToCart(item){
+    cart.push(item);
+    updateCart();
+    openCart();
+  }
+  function removeFromCart(index){
+    cart.splice(index, 1);
+    updateCart();
+  }
+  function openCart(){
+    document.getElementById('cart-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeCart(){
+    document.getElementById('cart-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function checkoutCart(){
+    if(cart.length === 0){
+      alert('Please add something to your cart before checking out.');
+      return;
+    }
+    closeCart();
+    openOrderModal('Cart order: ' + cart.join(', '));
+    document.getElementById('of-item').value = 'Cart order: ' + cart.join(', ');
+  }
   function openLightbox(el){
     var src = el.querySelector('img').src;
     var alt = el.querySelector('img').alt;

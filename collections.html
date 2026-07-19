@@ -118,6 +118,86 @@
         background: var(--moss);
         color: var(--paper);
       }
+      .admin-trigger {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        width: 24px;
+        height: 24px;
+        opacity: 0;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        z-index: 100;
+      }
+      .admin-status {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        color: var(--rose);
+        border: 1px solid rgba(201, 123, 132, 0.3);
+        border-radius: 999px;
+        padding: 6px 12px;
+        background: rgba(201, 123, 132, 0.08);
+        cursor: pointer;
+      }
+      .admin-status:hover {
+        opacity: 0.9;
+      }
+      .admin-edit-btn {
+        display: none;
+        font-size: 12px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(31, 42, 30, 0.08);
+        background: rgba(250, 246, 238, 0.9);
+        color: var(--moss);
+        cursor: pointer;
+        margin-bottom: 10px;
+      }
+      body.admin-enabled .admin-edit-btn {
+        display: inline-flex;
+      }
+      .login-overlay,
+      .admin-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(31, 42, 30, 0.7);
+        z-index: 320;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+      .login-overlay.open,
+      .admin-overlay.open {
+        display: flex;
+      }
+      .login-box,
+      .admin-box {
+        width: 100%;
+        max-width: 420px;
+        background: var(--paper);
+        border-radius: 18px;
+        padding: 32px;
+        position: relative;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.16);
+      }
+      .login-box h3,
+      .admin-box h3 {
+        margin-bottom: 10px;
+      }
+      .login-box .sub,
+      .admin-box .sub {
+        color: #5b5441;
+        margin-bottom: 22px;
+      }
+      .login-error {
+        margin-top: 12px;
+        color: var(--rose);
+        font-size: 13px;
+      }
 
       /* Cart Badge */
       .cart-btn {
@@ -1231,7 +1311,7 @@
   <body>
     <header>
       <nav class="wrap">
-        <a href="index.html" class="logo">
+        <a href="index.html" id="admin-logo-trigger" class="logo">
           <svg viewBox="0 0 24 24">
             <path
               d="M12 2C12 2 8 6 8 10C8 12.2 9.8 14 12 14C14.2 14 16 12.2 16 10C16 6 12 2 12 2Z"
@@ -1262,6 +1342,8 @@
               0
             </div>
           </button>
+          <button id="admin-trigger" class="admin-trigger" aria-hidden="true" onclick="openAdminLogin()"></button>
+          <span class="admin-status" id="admin-status" style="display:none;" onclick="logoutAdmin()" title="Click to logout">Admin mode</span>
           <div class="social-row">
             <a
               class="social-icon"
@@ -1632,6 +1714,54 @@
       </div>
     </div>
 
+    <div class="login-overlay" id="login-overlay">
+      <div class="login-box">
+        <button class="modal-close" onclick="closeAdminLogin()" type="button" aria-label="Close login">
+          ✕
+        </button>
+        <h3>Admin login</h3>
+        <p class="sub">Sign in to update collection titles and prices.</p>
+        <form id="admin-login-form">
+          <div class="field">
+            <label for="login-username">Username</label>
+            <input type="text" id="login-username" autocomplete="username" required />
+          </div>
+          <div class="field">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" autocomplete="current-password" required />
+          </div>
+          <button type="submit" class="btn-primary">Sign in</button>
+          <div class="login-error" id="login-error"></div>
+        </form>
+      </div>
+    </div>
+
+    <div class="admin-overlay" id="admin-overlay">
+      <div class="admin-box">
+        <button class="modal-close" onclick="closeAdminEdit()" type="button" aria-label="Close editor">
+          ✕
+        </button>
+        <h3>Edit product</h3>
+        <p class="sub">Update the collection title and price shown on the cards.</p>
+        <form id="admin-edit-form">
+          <input type="hidden" id="admin-edit-index" />
+          <div class="field">
+            <label for="admin-edit-name">Product title</label>
+            <input type="text" id="admin-edit-name" required />
+          </div>
+          <div class="field">
+            <label for="admin-edit-priceText">Price text</label>
+            <input type="text" id="admin-edit-priceText" required />
+          </div>
+          <div class="field">
+            <label for="admin-edit-fullName">Full name</label>
+            <input type="text" id="admin-edit-fullName" />
+          </div>
+          <button type="submit" class="btn-primary">Save changes</button>
+        </form>
+      </div>
+    </div>
+
     <div class="checkout-overlay" id="checkout-overlay">
       <div class="checkout-box">
         <button
@@ -1995,8 +2125,156 @@
       ];
 
       var currentProductIndex = 0;
+      var adminLoggedIn = false;
 
-      // Render product grid dynamically from the products array
+      // populate on load
+      function loadAdminState() {
+        adminLoggedIn = localStorage.getItem("flowershopAdminLoggedIn") === "true";
+        var edits = localStorage.getItem("flowershopProductEdits");
+        if (edits) {
+          try {
+            var saved = JSON.parse(edits);
+            Object.keys(saved).forEach(function (key) {
+              var index = parseInt(key, 10);
+              if (products[index]) {
+                Object.assign(products[index], saved[key]);
+              }
+            });
+          } catch (err) {
+            console.error("Unable to load saved product edits", err);
+          }
+        }
+      }
+
+      function updateAdminUI() {
+        document.body.classList.toggle("admin-enabled", adminLoggedIn);
+        var status = document.getElementById("admin-status");
+        if (status) {
+          status.style.display = adminLoggedIn ? "inline-flex" : "none";
+          status.textContent = adminLoggedIn ? "Admin mode" : "";
+        }
+      }
+
+      var adminHoldTimer = null;
+      var adminHoldTriggered = false;
+
+      function logoutAdmin() {
+        adminLoggedIn = false;
+        localStorage.removeItem("flowershopAdminLoggedIn");
+        updateAdminUI();
+        renderProductGrid();
+      }
+
+      function handleAdminLogoPressStart(event) {
+        adminHoldTriggered = false;
+        if (adminHoldTimer) {
+          clearTimeout(adminHoldTimer);
+        }
+        adminHoldTimer = setTimeout(function () {
+          adminHoldTriggered = true;
+          openAdminLogin();
+        }, 1000);
+      }
+
+      function handleAdminLogoPressEnd(event) {
+        if (adminHoldTimer) {
+          clearTimeout(adminHoldTimer);
+          adminHoldTimer = null;
+        }
+      }
+
+      function handleAdminLogoClick(event) {
+        if (adminHoldTriggered) {
+          event.preventDefault();
+          adminHoldTriggered = false;
+        }
+      }
+
+      function setupAdminLogoTrigger() {
+        var logo = document.getElementById("admin-logo-trigger");
+        if (!logo) return;
+        logo.addEventListener("mousedown", handleAdminLogoPressStart);
+        logo.addEventListener("touchstart", handleAdminLogoPressStart);
+        logo.addEventListener("mouseup", handleAdminLogoPressEnd);
+        logo.addEventListener("mouseleave", handleAdminLogoPressEnd);
+        logo.addEventListener("touchend", handleAdminLogoPressEnd);
+        logo.addEventListener("touchcancel", handleAdminLogoPressEnd);
+        logo.addEventListener("click", handleAdminLogoClick);
+      }
+
+      function openAdminLogin() {
+        document.getElementById("login-overlay").classList.add("open");
+        document.body.style.overflow = "hidden";
+        document.getElementById("login-error").textContent = "";
+        document.getElementById("login-username").focus();
+      }
+
+      function closeAdminLogin() {
+        document.getElementById("login-overlay").classList.remove("open");
+        document.body.style.overflow = "";
+      }
+
+      function openAdminEdit(index) {
+        if (!adminLoggedIn) {
+          openAdminLogin();
+          return;
+        }
+        var product = products[index];
+        document.getElementById("admin-edit-index").value = index;
+        document.getElementById("admin-edit-name").value = product.name;
+        document.getElementById("admin-edit-priceText").value = product.priceText;
+        document.getElementById("admin-edit-fullName").value = product.fullName || product.name + " — " + product.priceText;
+        document.getElementById("admin-overlay").classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeAdminEdit() {
+        document.getElementById("admin-overlay").classList.remove("open");
+        document.body.style.overflow = "";
+      }
+
+      function saveProductEdits() {
+        var edits = {};
+        cart = cart || [];
+        products.forEach(function (product, index) {
+          edits[index] = {
+            name: product.name,
+            priceText: product.priceText,
+            fullName: product.fullName,
+          };
+        });
+        localStorage.setItem("flowershopProductEdits", JSON.stringify(edits));
+      }
+
+      function handleAdminLogin(event) {
+        event.preventDefault();
+        var username = document.getElementById("login-username").value.trim();
+        var password = document.getElementById("login-password").value.trim();
+        var error = document.getElementById("login-error");
+        if (username === "admin" && password === "flowershop") {
+          adminLoggedIn = true;
+          localStorage.setItem("flowershopAdminLoggedIn", "true");
+          updateAdminUI();
+          closeAdminLogin();
+          renderProductGrid();
+          return;
+        }
+        error.textContent = "Invalid username or password.";
+      }
+
+      function handleAdminEdit(event) {
+        event.preventDefault();
+        var index = parseInt(document.getElementById("admin-edit-index").value, 10);
+        if (isNaN(index) || !products[index]) return;
+        products[index].name = document.getElementById("admin-edit-name").value.trim();
+        products[index].priceText = document.getElementById("admin-edit-priceText").value.trim();
+        var fullNameValue = document.getElementById("admin-edit-fullName").value.trim();
+        products[index].fullName = fullNameValue || products[index].name + " — " + products[index].priceText;
+        saveProductEdits();
+        renderProductGrid();
+        closeAdminEdit();
+      }
+
       function renderProductGrid() {
         var grid =
           document.getElementById("card-grid") ||
@@ -2027,6 +2305,9 @@
               '<div class="card-foot"><span class="price">' +
               (p.priceText || "") +
               '</span><span class="card-view">View <span aria-hidden="true">→</span></span></div>' +
+              '<button class="admin-edit-btn" onclick="event.stopPropagation(); openAdminEdit(' +
+              i +
+              ')">Edit</button>' +
               '<button class="card-add-btn" onclick="event.stopPropagation(); addToCartIndex(' +
               i +
               ')">Add to Cart</button></div>' +
@@ -2037,7 +2318,16 @@
       }
       // populate on load
       document.addEventListener("DOMContentLoaded", function () {
+        loadAdminState();
         renderProductGrid();
+        updateAdminUI();
+        setupAdminLogoTrigger();
+        document
+          .getElementById("admin-login-form")
+          .addEventListener("submit", handleAdminLogin);
+        document
+          .getElementById("admin-edit-form")
+          .addEventListener("submit", handleAdminEdit);
       });
 
       function openProductDetail(index) {
@@ -2409,6 +2699,16 @@
           ) {
             closeCheckout();
           }
+          if (
+            document.getElementById("login-overlay").classList.contains("open")
+          ) {
+            closeAdminLogin();
+          }
+          if (
+            document.getElementById("admin-overlay").classList.contains("open")
+          ) {
+            closeAdminEdit();
+          }
         }
       });
 
@@ -2432,6 +2732,20 @@
         .addEventListener("click", function (e) {
           if (e.target === this) {
             closeCheckout();
+          }
+        });
+      document
+        .getElementById("login-overlay")
+        .addEventListener("click", function (e) {
+          if (e.target === this) {
+            closeAdminLogin();
+          }
+        });
+      document
+        .getElementById("admin-overlay")
+        .addEventListener("click", function (e) {
+          if (e.target === this) {
+            closeAdminEdit();
           }
         });
 
