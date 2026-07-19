@@ -1,0 +1,90 @@
+[
+  {
+    "id": 1,
+    "title": "Studio photo 3",
+    "src": "./img/7.png",
+    "alt": "Studio photo 3",
+    "caption": "Soft pink roses arranged into a romantic studio bouquet.",
+    "layout": "tall"
+  },
+  {
+    "id": 2,
+    "title": "Studio photo 4",
+    "src": "https://placehold.co/400x320/F1EADA/C97B84?text=Studio+photo+4",
+    "alt": "Studio photo 4",
+    "caption": "A lush mix of seasonal blooms, greens, and texture.",
+    "layout": "small"
+  },
+  {
+    "id": 3,
+    "title": "Studio photo 5",
+    "src": "https://placehold.co/400x320/F1EADA/8FA37E?text=Studio+photo+5",
+    "alt": "Studio photo 5",
+    "caption": "A quiet studio moment framed in natural light.",
+    "layout": "small"
+  },
+  {
+    "id": 4,
+    "title": "Studio photo 6",
+    "src": "https://placehold.co/400x640/F1EADA/C99B4A?text=Studio+photo+6",
+    "alt": "Studio photo 6",
+    "caption": "Close-up details of delicate petals and seasonal texture.",
+    "layout": "tall"
+  },
+  {
+    "id": 5,
+    "title": "Studio photo 7",
+    "src": "https://placehold.co/400x320/F1EADA/C99B4A?text=Studio+photo+7",
+    "alt": "Studio photo 7",
+    "caption": "A bloom captured in the soft palette of our current collection.",
+    "layout": "wide"
+  },
+  {
+    "id": 6,
+    "title": "Feb 15",
+    "src": "./img/feb 15/111.png",
+    "alt": "Feb 15 studio photo",
+    "caption": "A close-up composition showing texture, color, and form.",
+    "layout": "small",
+    "images": [
+      "./img/feb 15/111.png",
+      "./img/feb 15/112.png",
+      "./img/feb 15/113.png",
+      "./img/feb 15/114.png",
+      "./img/feb 15/115.png",
+      "./img/feb 15/116.png",
+      "./img/feb 15/117.png",
+      "./img/feb 15/118.png",
+      "./img/feb 15/119.png",
+      "./img/feb 15/120.png",
+      "./img/feb 15/121.png",
+      "./img/feb 15/122.png",
+      "./img/feb 15/123.png",
+      "./img/feb 15/124.png"
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Studio photo 2",
+    "src": "https://placehold.co/400x320/F1EADA/C97B84?text=Studio+photo+2",
+    "alt": "Studio photo 2",
+    "caption": "A behind-the-scenes view of the arrangement process.",
+    "layout": "small"
+  },
+  {
+    "id": 8,
+    "title": "Studio photo 8",
+    "src": "https://placehold.co/400x320/F1EADA/C99B4A?text=Studio+photo+8",
+    "alt": "Studio photo 8",
+    "caption": "A quiet studio detail captured on the work table.",
+    "layout": "wide"
+  },
+  {
+    "id": 9,
+    "title": "Studio photo 9",
+    "src": "https://placehold.co/400x320/F1EADA/8FA37E?text=Studio+photo+9",
+    "alt": "Studio photo 9",
+    "caption": "A full collection preview in the Fleurae Atelier style.",
+    "layout": "small"
+  }
+]

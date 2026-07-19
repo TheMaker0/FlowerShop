@@ -1,288 +1,3139 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fleurae Atelier </title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,ital@9..144,300..700,0..1&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-  :root{--moss:#1F2A1E;--paper:#FAF6EE;--rose:#C97B84;--ochre:#C99B4A;--ink:#2A271F;--sage:#8FA37E;--line:rgba(42,39,31,0.14);}
-  *{box-sizing:border-box;margin:0;padding:0;} html{scroll-behavior:smooth;} body{background:var(--paper);color:var(--ink);font-family:'Work Sans',sans-serif;font-weight:400;line-height:1.6;}
-  h1,h2,h3,.display{font-family:'Fraunces',serif;font-weight:500;color:var(--moss);} a{color:inherit;text-decoration:none;} img,svg{display:block;max-width:100%;}
-  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;} .logo{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-size:21px;font-weight:600;color:var(--moss);} .nav-links{display:flex;gap:36px;font-size:14px;}
-  header{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(250,246,238,0.86);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);} nav.wrap{display:flex;align-items:center;justify-content:space-between;height:84px;} .nav-cta{border:1px solid var(--moss);padding:10px 22px;border-radius:999px;background:transparent;font-family:'Work Sans',sans-serif;font-size:14px;cursor:pointer;transition:background .25s ease, color .25s ease;} .nav-cta:hover{background:var(--moss);color:var(--paper);}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fleurae Atelier</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,ital@9..144,300..700,0..1&family=Work+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --moss: #1f2a1e;
+        --paper: #faf6ee;
+        --rose: #c97b84;
+        --ochre: #c99b4a;
+        --ink: #2a271f;
+        --sage: #8fa37e;
+        --line: rgba(42, 39, 31, 0.14);
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background: var(--paper);
+        color: var(--ink);
+        font-family: "Work Sans", sans-serif;
+        font-weight: 400;
+        line-height: 1.6;
+      }
+      h1,
+      h2,
+      h3,
+      .display {
+        font-family: "Fraunces", serif;
+        font-weight: 500;
+        color: var(--moss);
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      img,
+      svg {
+        display: block;
+        max-width: 100%;
+      }
+      .wrap {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 0 32px;
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-family: "Fraunces", serif;
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--moss);
+        transition:
+          transform 0.25s ease,
+          color 0.25s ease;
+      }
+      .logo:hover {
+        transform: translateY(-1px) scale(1.02);
+        color: var(--rose);
+      }
+      .logo svg {
+        transition: transform 0.25s ease;
+        width: 20px;
+        height: 20px;
+      }
+      .logo:hover svg {
+        transform: rotate(-8deg) scale(1.05);
+      }
+      .nav-links {
+        display: flex;
+        gap: 24px;
+        font-size: 13px;
+      }
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 50;
+        background: rgba(250, 246, 238, 0.86);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--line);
+      }
+      nav.wrap {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 68px;
+      }
+      .nav-cta {
+        border: 1px solid var(--moss);
+        padding: 8px 18px;
+        border-radius: 999px;
+        background: transparent;
+        font-family: "Work Sans", sans-serif;
+        font-size: 12px;
+        cursor: pointer;
+        transition:
+          background 0.25s ease,
+          color 0.25s ease;
+      }
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .nav-actions .cart-btn,
+      .nav-actions .nav-cta,
+      .nav-actions .admin-status,
+      .nav-actions .admin-add-btn {
+        white-space: nowrap;
+      }
+      .nav-cta:hover {
+        background: var(--moss);
+        color: var(--paper);
+      }
+      .admin-status {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        color: var(--rose);
+        border: 1px solid rgba(201, 123, 132, 0.3);
+        border-radius: 999px;
+        padding: 6px 12px;
+        background: rgba(201, 123, 132, 0.08);
+        cursor: pointer;
+      }
+      .admin-status:hover {
+        opacity: 0.9;
+      }
+      .admin-add-btn {
+        display: none;
+        min-width: 150px;
+        padding: 10px 18px;
+        border-radius: 999px;
+        border: 1px solid rgba(250, 246, 238, 0.18);
+        background: rgba(250, 246, 238, 0.12);
+        color: var(--paper);
+        font-weight: 700;
+        transition: background 0.25s ease, transform 0.25s ease;
+      }
+      .admin-add-btn:hover {
+        background: rgba(250, 246, 238, 0.18);
+        transform: translateY(-1px);
+      }
+      body.admin-enabled .admin-add-btn {
+        display: inline-flex;
+      }
+      .admin-ready-trigger {
+        cursor: inherit;
+        text-decoration: none;
+        font-weight: inherit;
+      }
+      .image-preview {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+      }
+      .image-preview img {
+        width: 70px;
+        height: 70px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+      }
+      .admin-edit-btn,
+      .admin-delete-btn {
+        display: none;
+        font-size: 13px;
+        padding: 10px 16px;
+        border-radius: 999px;
+        border: 1px solid rgba(250, 246, 238, 0.18);
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--paper);
+        cursor: pointer;
+        margin-bottom: 12px;
+        transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+        box-shadow: 0 12px 22px rgba(0, 0, 0, 0.08);
+      }
+      .admin-edit-btn:hover,
+      .admin-delete-btn:hover {
+        transform: translateY(-1px);
+        background: rgba(255, 255, 255, 0.16);
+        border-color: rgba(250, 246, 238, 0.28);
+      }
+      .admin-delete-btn {
+        border-color: rgba(255, 128, 128, 0.24);
+        background: rgba(255, 128, 128, 0.08);
+        color: #f3c0c0;
+      }
+      .admin-delete-btn:hover {
+        background: rgba(255, 128, 128, 0.16);
+        color: #ffebeb;
+      }
+      body.admin-enabled .admin-edit-btn,
+      body.admin-enabled .admin-delete-btn {
+        display: inline-flex;
+      }
+      .login-overlay,
+      .admin-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(31, 42, 30, 0.7);
+        z-index: 320;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+      .login-overlay.open,
+      .admin-overlay.open {
+        display: flex;
+      }
+      .login-box,
+      .admin-box {
+        width: 100%;
+        max-width: 520px;
+        background: var(--paper);
+        border-radius: 24px;
+        padding: 36px;
+        position: relative;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.18);
+        max-height: 92vh;
+        overflow-y: auto;
+      }
+      .admin-box {
+        border: 1px solid rgba(36, 49, 36, 0.08);
+      }
+      .login-box h3,
+      .admin-box h3 {
+        margin-bottom: 10px;
+      }
+      .login-box .sub,
+      .admin-box .sub {
+        color: #5b5441;
+        margin-bottom: 22px;
+      }
+      .admin-box .field {
+        margin-bottom: 20px;
+      }
+      .admin-box .field label {
+        color: #62705f;
+      }
+      .admin-box input,
+      .admin-box textarea {
+        border-color: rgba(111, 122, 108, 0.22);
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+      }
+      .admin-box input[type="file"] {
+        padding: 10px 12px;
+      }
+      .admin-box .image-preview {
+        justify-content: flex-start;
+      }
+      .admin-box .btn-primary {
+        border-radius: 14px;
+        padding: 14px 20px;
+        letter-spacing: 0.02em;
+      }
+      .login-error {
+        margin-top: 12px;
+        color: var(--rose);
+        font-size: 13px;
+      }
 
-  /* header/footer social icons */
-  .social-row{display:flex;align-items:center;gap:14px;}
-  .social-icon{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;transition:background .25s ease, border-color .25s ease, transform .25s ease;}
-  .social-icon:hover{background:var(--moss);border-color:var(--moss);transform:translateY(-2px);}
-  .social-icon:hover svg{stroke:var(--paper) !important;}
-  footer .social-icon{border-color:rgba(250,246,238,0.18);}
-  footer .social-icon:hover{background:var(--rose);border-color:var(--rose);}
+      /* Cart Badge */
+      .cart-btn {
+        position: relative;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 14px;
+        background: var(--rose);
+        color: var(--paper);
+        border-radius: 999px;
+        border: none;
+        font-size: 12px;
+        font-family: "Work Sans", sans-serif;
+        font-weight: 500;
+        transition: background 0.25s ease;
+      }
+      .cart-btn:hover {
+        background: var(--moss);
+      }
+      .cart-badge {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background: var(--ochre);
+        color: var(--paper);
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        font-weight: 600;
+      }
 
-  .collection{background:var(--moss);padding:100px 0;color:var(--paper);} .collection .section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:56px;gap:24px;flex-wrap:wrap;} .collection h2{color:var(--paper);font-size:clamp(30px,3.6vw,46px);} .collection .eyebrow{color:var(--ochre);font-size:13px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:10px;} .collection .section-head > p{max-width:320px;font-size:13.5px;color:#ADB39E;} .card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
-  .card{background:#243124;border-radius:18px;overflow:hidden;border:1px solid rgba(250,246,238,0.08);transition:transform .35s ease;} .card-art{aspect-ratio:4/5;overflow:hidden;background:linear-gradient(180deg, rgba(201,123,132,0.12), rgba(143,163,126,0.08));} .card-art img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;} .card:hover{transform:translateY(-6px);} .card:hover .card-art img{transform:scale(1.05);} .card-body{padding:22px 22px 26px;} .card-body .tag{font-size:11px;color:var(--rose);margin-bottom:8px;display:block;letter-spacing:.06em;text-transform:uppercase;} .card-body h3{color:var(--paper);font-size:21px;font-weight:500;margin-bottom:8px;} .card-body p{font-size:13.5px;color:#ADB39E;margin-bottom:16px;} .card-foot{display:flex;justify-content:space-between;align-items:center;font-size:14px;}
-  .card-foot .price{font-family:'Fraunces',serif;font-size:18px;color:var(--paper);} .card-foot a{color:var(--ochre);display:inline-flex;align-items:center;gap:6px;transition:gap .2s ease;} .card-foot a:hover{gap:10px;}
+      /* header/footer social icons */
+      .social-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .social-icon {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        border: 1px solid var(--line);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          background 0.25s ease,
+          border-color 0.25s ease,
+          transform 0.25s ease;
+      }
+      .social-icon:hover {
+        background: var(--moss);
+        border-color: var(--moss);
+        transform: translateY(-2px);
+      }
+      .social-icon:hover svg {
+        stroke: var(--paper) !important;
+      }
+      footer .social-icon {
+        border-color: rgba(250, 246, 238, 0.18);
+      }
+      footer .social-icon:hover {
+        background: var(--rose);
+        border-color: var(--rose);
+      }
 
-  .lightbox{position:fixed;inset:0;background:rgba(31,42,30,0.92);z-index:200;display:none;align-items:center;justify-content:center;padding:40px;} .lightbox.open{display:flex;} .lightbox img{max-width:90vw;max-height:85vh;border-radius:12px;} .lightbox-close{position:absolute;top:28px;right:32px;color:var(--paper);font-size:28px;cursor:pointer;width:44px;height:44px;display:flex;align-items:center;justify-content:center;}
+      .collection {
+        background: var(--moss);
+        padding: 100px 0;
+        color: var(--paper);
+      }
+      .collection .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 56px;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+      .collection h2 {
+        color: var(--paper);
+        font-size: clamp(30px, 3.6vw, 46px);
+      }
+      .collection .eyebrow {
+        color: var(--ochre);
+        font-size: 13px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        display: block;
+        margin-bottom: 10px;
+      }
+      .collection .section-head > p {
+        max-width: 320px;
+        font-size: 13.5px;
+        color: #adb39e;
+      }
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px;
+      }
+      .card {
+        background: #243124;
+        border-radius: 18px;
+        overflow: hidden;
+        border: 1px solid rgba(250, 246, 238, 0.08);
+        transition:
+          transform 0.35s ease,
+          box-shadow 0.35s ease;
+        cursor: pointer;
+        position: relative;
+      }
+      .card-art {
+        position: relative;
+        aspect-ratio: 4/5;
+        overflow: hidden;
+        background: linear-gradient(
+          180deg,
+          rgba(201, 123, 132, 0.12),
+          rgba(143, 163, 126, 0.08)
+        );
+      }
+      .card-art img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+      .card-art-actions {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        display: flex;
+        gap: 8px;
+        z-index: 10;
+      }
+      .card-action-btn {
+        border: none;
+        border-radius: 999px;
+        padding: 8px 10px;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+        transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+      }
+      .card-action-btn:hover {
+        transform: translateY(-1px);
+      }
+      .admin-edit-btn {
+        display: none;
+        color: var(--paper);
+        background: rgba(8, 90, 43, 0.82);
+      }
+      .admin-delete-btn {
+        display: none;
+        color: var(--paper);
+        background: rgba(136, 25, 25, 0.82);
+      }
+      body.admin-enabled .admin-edit-btn,
+      body.admin-enabled .admin-delete-btn {
+        display: inline-flex;
+      }
+      .card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 24px 56px rgba(0, 0, 0, 0.22);
+      }
+      .card:hover .card-art img {
+        transform: scale(1.05);
+      }
+      .card:focus-visible {
+        outline: 2px solid rgba(233, 197, 125, 0.9);
+        outline-offset: 4px;
+      }
+      .card-body {
+        padding: 22px 22px 26px;
+      }
+      .card-body .tag {
+        font-size: 11px;
+        color: var(--rose);
+        margin-bottom: 8px;
+        display: block;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      .card-body h3 {
+        color: var(--paper);
+        font-size: 21px;
+        font-weight: 500;
+        margin-bottom: 8px;
+      }
+      .card-body p {
+        font-size: 13.5px;
+        color: #adb39e;
+        margin-bottom: 16px;
+      }
+      .card-foot {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 14px;
+      }
+      /* Image overlay for title/short description */
+      .card-art-overlay {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 12px 14px;
+        background: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0),
+          rgba(0, 0, 0, 0.48)
+        );
+        color: var(--paper);
+      }
+      .card-art-overlay h4 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--paper);
+      }
+      .card-art-overlay .overlay-desc {
+        margin: 4px 0 0;
+        font-size: 12.5px;
+        color: rgba(250, 246, 238, 0.9);
+        line-height: 1.2;
+        max-height: 2.6em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .card-foot .price {
+        font-family: "Fraunces", serif;
+        font-size: 18px;
+        color: var(--paper);
+      }
+      .card-view {
+        color: var(--ochre);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: gap 0.2s ease;
+        font-weight: 700;
+      }
+      .card-view:hover {
+        gap: 10px;
+      }
 
-  footer{background:var(--moss);color:#C9CFC2;padding:56px 0 32px;} .footer-grid{display:flex;justify-content:space-between;flex-wrap:wrap;gap:32px;margin-bottom:40px;} .footer-brand{font-family:'Fraunces',serif;font-size:22px;color:var(--paper);max-width:280px;} .footer-brand p{font-size:13px;color:#9CA28F;margin-top:10px;font-family:'Work Sans',sans-serif;font-weight:400;}
-  .footer-col{display:flex;flex-direction:column;gap:12px;font-size:13.5px;} .footer-col h4{font-family:'Fraunces',serif;font-weight:500;color:var(--paper);font-size:14px;margin-bottom:4px;} .footer-col a{color:#C9CFC2;transition:color .2s ease;} .footer-col a:hover{color:var(--ochre);}
-  .footer-bottom{border-top:1px solid rgba(250,246,238,0.1);padding-top:24px;font-size:12.5px;display:flex;justify-content:space-between;color:#828867;flex-wrap:wrap;gap:12px;}
+      /* In-card Add to Cart button */
+      .card-add-btn {
+        display: inline-block;
+        margin-top: 12px;
+        background: var(--rose);
+        color: var(--paper);
+        border: none;
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 14px;
+        cursor: pointer;
+        transition:
+          transform 0.15s ease,
+          box-shadow 0.15s ease,
+          background 0.2s ease;
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+      }
+      .card-add-btn:hover {
+        transform: translateY(-3px);
+        background: var(--moss);
+      }
+      .card-add-btn:active {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+      }
+      .card-add-btn:focus {
+        outline: 2px solid rgba(233, 197, 125, 0.9);
+        outline-offset: 3px;
+      }
 
-  /* order modal */
-  .modal-overlay{position:fixed;inset:0;background:rgba(31,42,30,0.55);backdrop-filter:blur(3px);z-index:300;display:none;align-items:center;justify-content:center;padding:24px;}
-  .modal-overlay.open{display:flex;}
-  .modal-box{position:relative;width:100%;max-width:440px;max-height:90vh;overflow-y:auto;background:var(--paper);border-radius:18px;padding:44px 36px 36px;box-shadow:0 30px 70px rgba(31,42,30,0.35);}
-  .modal-close{position:absolute;top:18px;right:20px;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--moss);font-size:16px;transition:background .2s ease;}
-  .modal-close:hover{background:var(--line);}
-  .modal-box h3{font-size:26px;margin-bottom:6px;}
-  .modal-box .sub{font-size:13.5px;color:var(--rose);margin-bottom:26px;}
-  .field{margin-bottom:18px;display:flex;flex-direction:column;gap:6px;}
-  .field label{font-size:12.5px;letter-spacing:.03em;text-transform:uppercase;color:#6b6653;}
-  .field input,.field textarea{font-family:'Work Sans',sans-serif;font-size:14.5px;color:var(--ink);border:1px solid var(--line);background:#fff;border-radius:10px;padding:11px 13px;outline:none;transition:border-color .2s ease;}
-  .field input:focus,.field textarea:focus{border-color:var(--sage);}
-  .field textarea{min-height:84px;resize:vertical;}
-  .btn-primary{width:100%;background:var(--moss);color:var(--paper);border:none;border-radius:999px;padding:14px 20px;font-family:'Work Sans',sans-serif;font-size:14.5px;cursor:pointer;transition:background .25s ease;margin-top:4px;}
-  .btn-primary:hover{background:#2c3a2a;}
-  .form-note{font-size:11.5px;color:#8a866f;margin-top:12px;line-height:1.5;}
-  .form-success{display:none;text-align:center;padding:20px 0 4px;}
-  .form-success.show{display:block;}
-  .form-success svg{width:52px;height:52px;stroke:var(--sage);margin:0 auto 18px;}
-  .form-success h3{margin-bottom:10px;}
-  .form-success .sub{color:#6b6653;margin-bottom:24px;}
+      /* Product Detail View */
+      .product-detail-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(31, 42, 30, 0.7);
+        z-index: 250;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+        overflow-y: auto;
+      }
+      .product-detail-overlay.open {
+        display: flex;
+      }
+      .product-detail-box {
+        background: var(--paper);
+        border-radius: 16px;
+        max-width: 1000px;
+        width: 100%;
+        max-height: 95vh;
+        overflow-y: auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        padding: 44px;
+        position: relative;
+      }
+      .product-detail-gallery {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .product-detail-gallery-main {
+        border-radius: 12px;
+        overflow: hidden;
+        height: 420px;
+        background: #f0f0f0;
+      }
+      .product-detail-gallery-main img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .product-detail-gallery-thumbs {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .product-detail-gallery-thumbs img {
+        width: 80px;
+        height: 80px;
+        border-radius: 8px;
+        cursor: pointer;
+        border: 2px solid transparent;
+        object-fit: cover;
+        transition: border-color 0.2s ease;
+      }
+      .product-detail-gallery-thumbs img.active {
+        border-color: var(--rose);
+      }
+      .product-detail-info {
+        display: flex;
+        flex-direction: column;
+      }
+      .product-detail-info h2 {
+        font-size: 28px;
+        margin-bottom: 8px;
+        color: var(--moss);
+      }
+      .product-detail-info .tag {
+        font-size: 11px;
+        color: var(--rose);
+        margin-bottom: 16px;
+        display: block;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      .product-detail-price {
+        font-family: "Fraunces", serif;
+        font-size: 32px;
+        color: var(--moss);
+        margin-bottom: 8px;
+        font-weight: 600;
+      }
+      .product-detail-price-original {
+        font-size: 14px;
+        color: #999;
+        text-decoration: line-through;
+        margin-bottom: 24px;
+      }
+      .product-detail-desc {
+        font-size: 15px;
+        color: #54503f;
+        line-height: 1.8;
+        margin-bottom: 28px;
+      }
+      .product-details {
+        margin-bottom: 18px;
+        background: #f8f8f4;
+        border-radius: 8px;
+        padding: 12px 14px;
+        font-size: 14px;
+        color: #47433a;
+        border: 1px solid rgba(42, 39, 31, 0.04);
+      }
+      .product-details dl {
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        gap: 8px 12px;
+        align-items: start;
+        margin: 0;
+      }
+      .product-details dt {
+        font-weight: 700;
+        color: var(--moss);
+        font-size: 13px;
+      }
+      .product-details dd {
+        margin: 0;
+        color: #5b5441;
+      }
+      .product-quantity {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 28px;
+      }
+      .product-quantity label {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--moss);
+        min-width: 80px;
+      }
+      .qty-selector {
+        display: flex;
+        align-items: center;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        width: fit-content;
+      }
+      .qty-selector button {
+        width: 36px;
+        height: 36px;
+        border: none;
+        background: none;
+        cursor: pointer;
+        font-size: 18px;
+        color: var(--moss);
+        transition: background 0.2s ease;
+      }
+      .qty-selector button:hover {
+        background: #f5f5f5;
+      }
+      .qty-selector input {
+        width: 50px;
+        text-align: center;
+        border: none;
+        font-size: 14px;
+        color: var(--moss);
+      }
+      .qty-selector input:focus {
+        outline: none;
+      }
+      .product-detail-cta {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .btn-cart {
+        background: var(--rose);
+        color: var(--paper);
+        border: none;
+        border-radius: 8px;
+        padding: 14px 28px;
+        font-size: 15px;
+        cursor: pointer;
+        transition: background 0.25s ease;
+        font-weight: 600;
+        flex: 1;
+        min-width: 120px;
+      }
+      .btn-cart:hover {
+        background: var(--moss);
+      }
+      .btn-reserve {
+        background: var(--moss);
+        color: var(--paper);
+        border: none;
+        border-radius: 8px;
+        padding: 14px 28px;
+        font-size: 15px;
+        cursor: pointer;
+        transition: background 0.25s ease;
+        font-weight: 600;
+        flex: 1;
+        min-width: 120px;
+      }
+      .btn-reserve:hover {
+        background: var(--rose);
+      }
+      .product-detail-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        background: var(--moss);
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        color: var(--paper);
+        font-size: 20px;
+        transition: background 0.25s ease;
+        z-index: 10;
+      }
+      .product-detail-close:hover {
+        background: var(--rose);
+      }
 
-  @media (max-width:920px){ .card-grid{grid-template-columns:1fr 1fr;} }
-  @media (max-width:700px){ .nav-links{display:none;} }
-  @media (max-width:600px){ .card-grid{grid-template-columns:1fr;} .wrap{padding:0 22px;} .collection{padding:70px 0;} }
-</style>
-</head>
-<body>
+      /* Cart Modal */
+      .cart-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(31, 42, 30, 0.5);
+        z-index: 260;
+        display: none;
+        align-items: flex-end;
+        justify-content: flex-end;
+      }
+      .cart-overlay.open {
+        display: flex;
+      }
+      .cart-panel {
+        background: var(--paper);
+        width: 100%;
+        max-width: 480px;
+        height: 100vh;
+        max-height: 100vh;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        border-radius: 12px 12px 0 0;
+      }
+      @media (max-width: 700px) {
+        .cart-overlay {
+          justify-content: center;
+          align-items: flex-end;
+        }
+        .cart-panel {
+          border-radius: 16px 16px 0 0;
+          max-width: 100%;
+          height: auto;
+          max-height: 90vh;
+        }
+      }
+      .cart-header {
+        padding: 24px;
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #fafafa;
+      }
+      .cart-header h3 {
+        font-size: 20px;
+        color: var(--moss);
+      }
+      .cart-close {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 24px;
+        color: var(--moss);
+      }
+      .cart-items {
+        flex: 1;
+        overflow-y: auto;
+        padding: 16px;
+      }
+      .cart-item {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 16px;
+        padding: 12px;
+        background: #fafafa;
+        border-radius: 8px;
+      }
+      .cart-item-img {
+        width: 60px;
+        height: 60px;
+        border-radius: 6px;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+      .cart-item-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .cart-item-details {
+        flex: 1;
+      }
+      .cart-item-name {
+        font-weight: 500;
+        font-size: 13px;
+        color: var(--moss);
+        margin-bottom: 4px;
+      }
+      .cart-item-price {
+        font-family: "Fraunces", serif;
+        color: var(--rose);
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .cart-item-qty {
+        font-size: 12px;
+        color: #999;
+        margin-top: 4px;
+      }
+      .cart-item-remove {
+        background: none;
+        border: none;
+        color: #999;
+        cursor: pointer;
+        font-size: 18px;
+        padding: 0;
+      }
+      .cart-empty {
+        text-align: center;
+        padding: 40px 20px;
+        color: #999;
+      }
+      .cart-footer {
+        border-top: 1px solid var(--line);
+        padding: 20px;
+        background: #fafafa;
+      }
+      .cart-total {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+        font-size: 16px;
+      }
+      .cart-total-price {
+        font-family: "Fraunces", serif;
+        font-size: 24px;
+        color: var(--rose);
+        font-weight: 600;
+      }
+      .btn-checkout {
+        width: 100%;
+        background: var(--rose);
+        color: var(--paper);
+        border: none;
+        border-radius: 8px;
+        padding: 14px;
+        font-size: 15px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background 0.25s ease;
+      }
+      .btn-checkout:hover {
+        background: var(--moss);
+      }
 
-<header>
-  <nav class="wrap">
-    <a href="index(1).html" class="logo">
-      <svg viewBox="0 0 24 24"><path d="M12 2C12 2 8 6 8 10C8 12.2 9.8 14 12 14C14.2 14 16 12.2 16 10C16 6 12 2 12 2Z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M12 14V22" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
-      Fleurae Atelier
-    </a>
-    <div class="nav-links">
-      <a href="index(1).html#philosophy">Studio</a>
-      <a href="collections.html" aria-current="page">Collection</a>
-      <a href="index(1).html#albums">Albums</a>
-      <a href="index(1).html#process">Process</a>
-      <a href="index(1).html#visit">Visit</a>
-    </div>
-    <div style="display:flex; align-items:center; gap:18px;">
-      <div class="social-row">
-        <a class="social-icon" href="https://facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--moss)" stroke-width="1.6"><path d="M15 8h-2a2 2 0 0 0-2 2v3H9v3h2v6h3v-6h2.2l.8-3H14v-2a1 1 0 0 1 1-1h2V8Z"/></svg>
+      /* Checkout Modal */
+      .checkout-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(31, 42, 30, 0.5);
+        z-index: 270;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+      }
+      .checkout-overlay.open {
+        display: flex;
+      }
+      .checkout-box {
+        background: var(--paper);
+        border-radius: 16px;
+        max-width: 600px;
+        width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+        padding: 40px;
+      }
+      .checkout-header {
+        margin-bottom: 28px;
+      }
+      .checkout-header h2 {
+        font-size: 28px;
+        color: var(--moss);
+        margin-bottom: 8px;
+      }
+      .success-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(31, 42, 30, 0.7);
+        z-index: 280;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+      }
+      .success-overlay.open {
+        display: flex;
+      }
+      .success-box {
+        background: var(--paper);
+        border-radius: 16px;
+        max-width: 480px;
+        width: 100%;
+        padding: 32px;
+        text-align: center;
+        box-shadow: 0 24px 48px rgba(0, 0, 0, 0.16);
+      }
+      .success-box h3 {
+        font-size: 26px;
+        color: var(--moss);
+        margin-bottom: 12px;
+      }
+      .success-box p {
+        color: #5b5441;
+        line-height: 1.7;
+        margin-bottom: 24px;
+      }
+      .success-box .btn-success {
+        background: var(--moss);
+        color: var(--paper);
+        border: none;
+        border-radius: 999px;
+        padding: 14px 24px;
+        font-size: 15px;
+        cursor: pointer;
+        transition: background 0.25s ease;
+      }
+      .success-box .btn-success:hover {
+        background: #2c3a2a;
+      }
+      .checkout-section {
+        margin-bottom: 28px;
+      }
+      .checkout-section h3 {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--moss);
+        margin-bottom: 16px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .checkout-item {
+        display: flex;
+        gap: 12px;
+        padding: 12px;
+        background: #fafafa;
+        border-radius: 8px;
+        margin-bottom: 12px;
+      }
+      .checkout-item-img {
+        width: 50px;
+        height: 50px;
+        border-radius: 6px;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+      .checkout-item-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .checkout-item-info {
+        flex: 1;
+        font-size: 13px;
+      }
+      .checkout-item-name {
+        font-weight: 500;
+        color: var(--moss);
+      }
+      .checkout-item-price {
+        color: var(--rose);
+        font-weight: 600;
+      }
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .form-row.full {
+        grid-template-columns: 1fr;
+      }
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .form-group label {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--moss);
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+      }
+      .form-group input {
+        padding: 10px 12px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        font-size: 14px;
+        font-family: "Work Sans", sans-serif;
+      }
+      .form-group input:focus {
+        outline: none;
+        border-color: var(--rose);
+      }
+      .checkout-total {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 16px;
+        border-top: 1px solid var(--line);
+        font-size: 18px;
+        margin-bottom: 20px;
+      }
+      .checkout-total-price {
+        font-family: "Fraunces", serif;
+        font-size: 28px;
+        color: var(--rose);
+        font-weight: 600;
+      }
+      .btn-place-order {
+        width: 100%;
+        background: var(--rose);
+        color: var(--paper);
+        border: none;
+        border-radius: 8px;
+        padding: 16px;
+        font-size: 15px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background 0.25s ease;
+      }
+      .btn-place-order:hover {
+        background: var(--moss);
+      }
+      .checkout-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 24px;
+        color: var(--moss);
+      }
+      .checkout-close:hover {
+        color: var(--rose);
+      }
+      .checkout-box {
+        position: relative;
+      }
+
+      .lightbox {
+        position: fixed;
+        inset: 0;
+        background: rgba(31, 42, 30, 0.92);
+        z-index: 200;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+      }
+      .lightbox.open {
+        display: flex;
+      }
+      .lightbox img {
+        max-width: 90vw;
+        max-height: 85vh;
+        border-radius: 12px;
+      }
+      .lightbox-close {
+        position: absolute;
+        top: 28px;
+        right: 32px;
+        color: var(--paper);
+        font-size: 28px;
+        cursor: pointer;
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      footer {
+        background: var(--moss);
+        color: #c9cfc2;
+        padding: 56px 0 32px;
+      }
+      .footer-grid {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 32px;
+        margin-bottom: 40px;
+      }
+      .footer-brand {
+        font-family: "Fraunces", serif;
+        font-size: 22px;
+        color: var(--paper);
+        max-width: 280px;
+      }
+      .footer-brand p {
+        font-size: 13px;
+        color: #9ca28f;
+        margin-top: 10px;
+        font-family: "Work Sans", sans-serif;
+        font-weight: 400;
+      }
+      .footer-col {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        font-size: 13.5px;
+      }
+      .footer-col h4 {
+        font-family: "Fraunces", serif;
+        font-weight: 500;
+        color: var(--paper);
+        font-size: 14px;
+        margin-bottom: 4px;
+      }
+      .footer-col a {
+        color: #c9cfc2;
+        transition: color 0.2s ease;
+      }
+      .footer-col a:hover {
+        color: var(--ochre);
+      }
+      .footer-bottom {
+        border-top: 1px solid rgba(250, 246, 238, 0.1);
+        padding-top: 24px;
+        font-size: 12.5px;
+        display: flex;
+        justify-content: space-between;
+        color: #828867;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      /* order modal */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(31, 42, 30, 0.55);
+        backdrop-filter: blur(3px);
+        z-index: 300;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+      .modal-overlay.open {
+        display: flex;
+      }
+      .modal-box {
+        position: relative;
+        width: 100%;
+        max-width: 440px;
+        max-height: 90vh;
+        overflow-y: auto;
+        background: var(--paper);
+        border-radius: 18px;
+        padding: 44px 36px 36px;
+        box-shadow: 0 30px 70px rgba(31, 42, 30, 0.35);
+      }
+      .modal-close {
+        position: absolute;
+        top: 18px;
+        right: 20px;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: var(--moss);
+        font-size: 16px;
+        transition: background 0.2s ease;
+      }
+      .modal-close:hover {
+        background: var(--line);
+      }
+      .modal-box h3 {
+        font-size: 26px;
+        margin-bottom: 6px;
+      }
+      .modal-box .sub {
+        font-size: 13.5px;
+        color: var(--rose);
+        margin-bottom: 26px;
+      }
+      .field {
+        margin-bottom: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .field label {
+        font-size: 12.5px;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+        color: #6b6653;
+      }
+      .field input,
+      .field textarea {
+        font-family: "Work Sans", sans-serif;
+        font-size: 14.5px;
+        color: var(--ink);
+        border: 1px solid var(--line);
+        background: #fff;
+        border-radius: 10px;
+        padding: 11px 13px;
+        outline: none;
+        transition: border-color 0.2s ease;
+      }
+      .field input:focus,
+      .field textarea:focus {
+        border-color: var(--sage);
+      }
+      .field textarea {
+        min-height: 84px;
+        resize: vertical;
+      }
+      .btn-primary {
+        width: 100%;
+        background: var(--moss);
+        color: var(--paper);
+        border: none;
+        border-radius: 999px;
+        padding: 14px 20px;
+        font-family: "Work Sans", sans-serif;
+        font-size: 14.5px;
+        cursor: pointer;
+        transition: background 0.25s ease;
+        margin-top: 4px;
+      }
+      .btn-primary:hover {
+        background: #2c3a2a;
+      }
+      .form-note {
+        font-size: 11.5px;
+        color: #8a866f;
+        margin-top: 12px;
+        line-height: 1.5;
+      }
+      .form-success {
+        display: none;
+        text-align: center;
+        padding: 20px 0 4px;
+      }
+      .form-success.show {
+        display: block;
+      }
+      .form-success svg {
+        width: 52px;
+        height: 52px;
+        stroke: var(--sage);
+        margin: 0 auto 18px;
+      }
+      .form-success h3 {
+        margin-bottom: 10px;
+      }
+      .form-success .sub {
+        color: #6b6653;
+        margin-bottom: 24px;
+      }
+
+      @media (max-width: 920px) {
+        .collection .section-head {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 18px;
+        }
+        .card-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .admin-box {
+          max-width: 100%;
+          padding: 30px;
+        }
+        .admin-add-btn {
+          min-width: 160px;
+        }
+        .product-detail-box {
+          grid-template-columns: 1fr;
+        }
+        .product-detail-box {
+          padding: 28px;
+          gap: 28px;
+        }
+      }
+      @media (max-width: 700px) {
+        nav.wrap {
+          flex-wrap: wrap;
+          justify-content: space-between;
+          gap: 14px;
+          height: auto;
+          padding: 12px 18px;
+        }
+        .nav-links {
+          display: none;
+        }
+        .nav-actions {
+          flex-wrap: wrap;
+          justify-content: flex-end;
+          gap: 10px;
+          width: auto;
+          align-items: center;
+        }
+        .nav-actions > * {
+          flex: none;
+          min-width: auto;
+        }
+        .admin-add-btn {
+          width: auto;
+          justify-content: center;
+        }
+        .cart-btn {
+          justify-content: center;
+        }
+        .nav-cta {
+          justify-content: center;
+        }
+        .cart-panel {
+          max-width: 100%;
+        }
+        .admin-box {
+          max-width: 100%;
+          padding: 22px;
+        }
+        .login-box {
+          max-width: 100%;
+          padding: 22px;
+        }
+        .field {
+          margin-bottom: 16px;
+        }
+        .admin-box .field {
+          gap: 4px;
+        }
+        .admin-box .btn-primary {
+          border-radius: 14px;
+          padding: 14px 18px;
+        }
+        .image-preview img {
+          width: 60px;
+          height: 60px;
+        }
+        .admin-edit-btn,
+        .card-add-btn {
+          width: 100%;
+        }
+      }
+        .product-detail-overlay {
+          align-items: flex-end;
+        }
+        .product-detail-box {
+          max-width: 100%;
+          border-radius: 16px 16px 0 0;
+          height: 95vh;
+          max-height: 95vh;
+        }
+        .checkout-box {
+          padding: 28px 20px;
+          max-width: 100%;
+        }
+      }
+      @media (max-width: 600px) {
+        .card-grid {
+          grid-template-columns: 1fr;
+        }
+        .wrap {
+          padding: 0 18px;
+        }
+        .collection {
+          padding: 60px 0;
+        }
+        .product-detail-box {
+          padding: 20px;
+          gap: 16px;
+        }
+        .product-detail-gallery-main {
+          height: 260px;
+        }
+        .product-detail-gallery-thumbs img {
+          width: 60px;
+          height: 60px;
+        }
+        .product-detail-info h2 {
+          font-size: 24px;
+        }
+        .product-detail-price {
+          font-size: 24px;
+        }
+        .cart-panel {
+          max-width: 100%;
+        }
+        .checkout-box {
+          padding: 24px;
+          max-width: 100%;
+        }
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+        .card-add-btn {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="wrap">
+        <a href="index.html" id="admin-logo-trigger" class="logo">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M12 2C12 2 8 6 8 10C8 12.2 9.8 14 12 14C14.2 14 16 12.2 16 10C16 6 12 2 12 2Z"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.3"
+            />
+            <path
+              d="M12 14V22"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.3"
+            />
+          </svg>
+          Fleurae Atelier
         </a>
-        <a class="social-icon" href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--moss)" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.4"/><circle cx="16.6" cy="7.4" r="0.6" fill="var(--moss)"/></svg>
-        </a>
-      </div>
-      <button class="nav-cta" onclick="openOrderModal('General inquiry')">Order flowers</button>
-    </div>
-  </nav>
-</header>
-
-<main style="padding-top:100px;">
-  <section class="collection" id="collection">
-    <div class="wrap">
-      <div class="section-head">
-        <div>
-          <span class="eyebrow">This week's cut</span>
-          <h2>The seasonal collection</h2>
+        <div class="nav-links">
+          <a href="index.html#philosophy">Studio</a>
+          <a href="collections.html" aria-current="page">Collection</a>
+          <a href="albums.html">Albums</a>
+          <a href="index.html#process">Process</a>
+          <a href="index.html#visit">Visit</a>
         </div>
-        <p>Updated every Monday based on what the growers have ready. Quantities are limited — arrangements are made to order, not stockpiled.</p>
-      </div>
-      <div class="card-grid">
+        <div class="nav-actions">
+          <button class="cart-btn" onclick="openCart()">
+            <span>🛒</span> Cart
+            <div class="cart-badge" id="cart-badge" style="display: none">
+              0
+            </div>
+          </button>
+          <button id="admin-add-item-btn" class="nav-cta admin-add-btn" type="button" onclick="openAdminEdit(-1)">Add item</button>
+          <span class="admin-status" id="admin-status" style="display:none;" onclick="logoutAdmin()" title="Click to logout">Admin mode</span>
+          <a
+            class="nav-cta"
+            href="mailto:fleuraeatelier2024@gmail.com?subject=Order%20flowers"
+            >Order flowers</a
+          >
+        </div>
+      </nav>
+    </header>
 
-        <div class="card">
-          <div class="card-art">
-            <img src="./img/2.png" alt="The Hollow Lane bouquet — blush garden roses and trailing jasmine">
+    <main style="padding-top: 80px">
+      <section class="collection" id="collection">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow">This week's cut</span>
+              <h2>The seasonal collection</h2>
+            </div>
+            <p>
+              Updated every Monday based on what the growers have <span id="admin-ready-trigger" class="admin-ready-trigger">ready</span>.
+              Quantities are limited — arrangements are made to order, not
+              stockpiled.
+            </p>
           </div>
-          <div class="card-body">
-            <span class="tag">Garden rose</span>
-            <h3>The Hollow Lane</h3>
-            <p>Blush garden roses, dusty miller, trailing jasmine vine.</p>
-            <div class="card-foot">
-              <span class="price">$68</span>
-              <a href="#" onclick="openOrderModal('The Hollow Lane — $68'); return false;">Reserve <span aria-hidden="true">→</span></a>
+          <div class="card-grid" id="card-grid">
+            <div
+              class="card"
+              onclick="openProductDetail(0)"
+              role="button"
+              tabindex="0"
+              onkeydown="
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  openProductDetail(0);
+                }
+              "
+            >
+              <div class="card-art">
+                <img
+                  src="./img/2.png"
+                  alt="Sunflower Stroll bouquet — bright sunflowers and yellow ribbon"
+                />
+              </div>
+              <div class="card-body">
+                <span class="tag">Summer bloom</span>
+                <h3>Sunflower Stroll</h3>
+                <p>
+                  Bright sunflowers wrapped in white paper with a cheerful
+                  yellow ribbon.
+                </p>
+                <div class="card-foot">
+                  <span class="price">₱68</span>
+                  <span class="card-view"
+                    >View <span aria-hidden="true">→</span></span
+                  >
+                </div>
+                <button
+                  class="card-add-btn"
+                  onclick="
+                    event.stopPropagation();
+                    addToCartIndex(0);
+                  "
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+
+            <div
+              class="card"
+              onclick="openProductDetail(1)"
+              role="button"
+              tabindex="0"
+              onkeydown="
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  openProductDetail(1);
+                }
+              "
+            >
+              <div class="card-art">
+                <img
+                  src="./img/3.png"
+                  alt="Lavender Dream bouquet — purple blooms and delicate ribbon wrap"
+                />
+              </div>
+              <div class="card-body">
+                <span class="tag">Lilac dream</span>
+                <h3>Lavender Dream</h3>
+                <p>
+                  Soft purple blossoms with delicate accents tucked into a
+                  dreamy paper wrap.
+                </p>
+                <div class="card-foot">
+                  <span class="price">₱68</span>
+                  <span class="card-view"
+                    >View <span aria-hidden="true">→</span></span
+                  >
+                </div>
+                <button
+                  class="card-add-btn"
+                  onclick="
+                    event.stopPropagation();
+                    addToCartIndex(1);
+                  "
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+
+            <div
+              class="card"
+              onclick="openProductDetail(2)"
+              role="button"
+              tabindex="0"
+              onkeydown="
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  openProductDetail(2);
+                }
+              "
+            >
+              <div class="card-art">
+                <img
+                  src="./img/4.png"
+                  alt="Petite Garden Trio — pastel mini floral pots for table decor"
+                />
+              </div>
+              <div class="card-body">
+                <span class="tag">Wild gathered</span>
+                <h3>Petite Garden Trio</h3>
+                <p>
+                  Three pastel floral pots arranged as a charming tabletop
+                  accent.
+                </p>
+                <div class="card-foot">
+                  <span class="price">₱54</span>
+                  <span class="card-view"
+                    >View <span aria-hidden="true">→</span></span
+                  >
+                </div>
+                <button
+                  class="card-add-btn"
+                  onclick="
+                    event.stopPropagation();
+                    addToCartIndex(2);
+                  "
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+
+            <div
+              class="card"
+              onclick="openProductDetail(3)"
+              role="button"
+              tabindex="0"
+              onkeydown="
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  openProductDetail(3);
+                }
+              "
+            >
+              <div class="card-art">
+                <img
+                  src="./img/5.png"
+                  alt="Blushing Garden bouquet — soft pink blooms wrapped in white paper"
+                />
+              </div>
+              <div class="card-body">
+                <span class="tag">Romantic</span>
+                <h3>Blushing Garden</h3>
+                <p>
+                  Soft pink blooms arranged in airy white paper with a delicate,
+                  feminine feel.
+                </p>
+                <div class="card-foot">
+                  <span class="price">₱92</span>
+                  <span class="card-view"
+                    >View <span aria-hidden="true">→</span></span
+                  >
+                </div>
+                <button
+                  class="card-add-btn"
+                  onclick="
+                    event.stopPropagation();
+                    addToCartIndex(3);
+                  "
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+
+            <div
+              class="card"
+              onclick="openProductDetail(4)"
+              role="button"
+              tabindex="0"
+              onkeydown="
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  openProductDetail(4);
+                }
+              "
+            >
+              <div class="card-art">
+                <img
+                  src="./img/6.png"
+                  alt="Starflower Stem — layered blue and purple petals on a single stem"
+                />
+              </div>
+              <div class="card-body">
+                <span class="tag">Signature</span>
+                <h3>Starflower Stem</h3>
+                <p>
+                  A handcrafted stem of layered petals in blue and purple for a
+                  striking accent.
+                </p>
+                <div class="card-foot">
+                  <span class="price">₱92</span>
+                  <span class="card-view"
+                    >View <span aria-hidden="true">→</span></span
+                  >
+                </div>
+                <button
+                  class="card-add-btn"
+                  onclick="
+                    event.stopPropagation();
+                    addToCartIndex(4);
+                  "
+                >
+                  Add to Cart
+                </button>
+              </div>
             </div>
           </div>
         </div>
+      </section>
+    </main>
 
-        <div class="card">
-          <div class="card-art">
-            <img src="./img/3.png" alt="The Hollow Lane bouquet — blush garden roses and trailing jasmine">
-          </div>
-          <div class="card-body">
-            <span class="tag">Garden rose</span>
-            <h3>The Hollow Lane</h3>
-            <p>Blush garden roses, dusty miller, trailing jasmine vine.</p>
-            <div class="card-foot">
-              <span class="price">$68</span>
-              <a href="#" onclick="openOrderModal('The Hollow Lane — $68'); return false;">Reserve <span aria-hidden="true">→</span></a>
-            </div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-art">
-            <img src="./img/4.png" alt="Low Meadow bouquet — wild gathered cosmos and grasses">
-          </div>
-          <div class="card-body">
-            <span class="tag">Wild gathered</span>
-            <h3>Low Meadow</h3>
-            <p>Cosmos, queen anne's lace, and bunny tail grass, loosely tied.</p>
-            <div class="card-foot">
-              <span class="price">$54</span>
-              <a href="#" onclick="openOrderModal('Low Meadow — $54'); return false;">Reserve <span aria-hidden="true">→</span></a>
-            </div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-art">
-            <img src="./img/5.png" alt="Ember and Smoke bouquet — amber dahlias and ranunculus">
-          </div>
-          <div class="card-body">
-            <span class="tag">Statement</span>
-            <h3>Ember &amp; Smoke</h3>
-            <p>Dahlias and ranunculus in burnt amber, smoked eucalyptus.</p>
-            <div class="card-foot">
-              <span class="price">$92</span>
-              <a href="#" onclick="openOrderModal('Ember &amp; Smoke — $92'); return false;">Reserve <span aria-hidden="true">→</span></a>
-            </div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-art">
-            <img src="./img/6.png" alt="Ember and Smoke bouquet — amber dahlias and ranunculus">
-          </div>
-          <div class="card-body">
-            <span class="tag">Statement</span>
-            <h3>Ember &amp; Smoke</h3>
-            <p>Dahlias and ranunculus in burnt amber, smoked eucalyptus.</p>
-            <div class="card-foot">
-              <span class="price">$92</span>
-              <a href="#" onclick="openOrderModal('Ember &amp; Smoke — $92'); return false;">Reserve <span aria-hidden="true">→</span></a>
-            </div>
-          </div>
-        </div>
-
+    <div class="lightbox" id="lightbox">
+      <div
+        class="lightbox-close"
+        onclick="closeLightbox()"
+        role="button"
+        aria-label="Close image"
+        tabindex="0"
+      >
+        ✕
       </div>
+      <img id="lightbox-img" src="" alt="" />
     </div>
-  </section>
-</main>
 
-<div class="lightbox" id="lightbox">
-  <div class="lightbox-close" onclick="closeLightbox()" role="button" aria-label="Close image" tabindex="0">✕</div>
-  <img id="lightbox-img" src="" alt="">
-</div>
+    <!-- Product Detail Modal -->
+    <div class="product-detail-overlay" id="product-detail-overlay">
+      <button
+        class="product-detail-close"
+        onclick="closeProductDetail()"
+        aria-label="Close product details"
+      >
+        ✕
+      </button>
+      <div class="product-detail-box">
+        <div class="product-detail-gallery">
+          <div class="product-detail-gallery-main">
+            <img id="product-main-img" src="" alt="" />
+          </div>
+          <div class="product-detail-gallery-thumbs" id="product-thumbs"></div>
+        </div>
+        <div class="product-detail-info">
+          <span class="tag" id="product-tag">Garden rose</span>
+          <h2 id="product-title">Product Name</h2>
+          <div class="product-detail-price" id="product-price">₱68</div>
+          <div
+            class="product-detail-price-original"
+            id="product-price-original"
+            style="display: none"
+          ></div>
+          <p class="product-detail-desc" id="product-desc">
+            Product description goes here.
+          </p>
+          <div
+            class="product-details"
+            id="product-details"
+            aria-live="polite"
+          ></div>
 
-<footer>
-  <div class="wrap">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        Marigold &amp; Stem
-        <p>A small floral atelier working in season, by hand, every day.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Studio</h4>
-        <a href="index(1).html#philosophy">Our approach</a>
-        <a href="index(1).html#process">How we work</a>
-        <a href="collections.html">This week's stems</a>
-      </div>
-      <div class="footer-col">
-        <h4>Follow</h4>
-        <div class="social-row">
-          <a class="social-icon" href="https://facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#D8DCCF" stroke-width="1.6"><path d="M15 8h-2a2 2 0 0 0-2 2v3H9v3h2v6h3v-6h2.2l.8-3H14v-2a1 1 0 0 1 1-1h2V8Z"/></svg>
-          </a>
-          <a class="social-icon" href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#D8DCCF" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.4"/><circle cx="16.6" cy="7.4" r="0.6" fill="#D8DCCF"/></svg>
-          </a>
+          <div class="product-quantity">
+            <label for="qty-input">Quantity:</label>
+            <div class="qty-selector">
+              <button onclick="decrementQty()">−</button>
+              <input type="number" id="qty-input" value="1" min="1" readonly />
+              <button onclick="incrementQty()">+</button>
+            </div>
+          </div>
+
+          <div class="product-detail-cta">
+            <button class="btn-cart" onclick="addToCart()">Add to Cart</button>
+            <button class="btn-reserve" onclick="buyNow()">Buy Now</button>
+          </div>
         </div>
       </div>
     </div>
-    <div class="footer-bottom">
-      <span>© 2026 Marigold &amp; Stem Floral Atelier</span>
-      <span>Cut fresh, arranged daily</span>
-    </div>
-  </div>
-</footer>
 
-<div class="modal-overlay" id="order-modal">
-  <div class="modal-box">
-    <div class="modal-close" onclick="closeOrderModal()" role="button" aria-label="Close form" tabindex="0">✕</div>
-
-    <div id="order-form-view">
-      <h3>Reserve your bouquet</h3>
-      <p class="sub" id="order-item-label">General inquiry</p>
-      <form id="order-form">
-        <div class="field">
-          <label for="of-name">Your name</label>
-          <input type="text" id="of-name" required>
+    <div class="cart-overlay" id="cart-overlay">
+      <div class="cart-panel">
+        <div class="cart-header">
+          <h3>Your Cart</h3>
+          <button
+            class="cart-close"
+            onclick="closeCart()"
+            aria-label="Close cart"
+          >
+            ✕
+          </button>
         </div>
-        <div class="field">
-          <label for="of-email">Email address</label>
-          <input type="email" id="of-email" required>
+        <div class="cart-items" id="cart-items"></div>
+        <div class="cart-footer">
+          <div class="cart-total">
+            <span>Subtotal</span>
+            <span class="cart-total-price" id="cart-total-price">₱0</span>
+          </div>
+          <button class="btn-checkout" onclick="openCheckout()">
+            Checkout
+          </button>
         </div>
-        <div class="field">
-          <label for="of-date">Preferred pickup or delivery date</label>
-          <input type="date" id="of-date">
-        </div>
-        <div class="field">
-          <label for="of-message">Anything we should know?</label>
-          <textarea id="of-message" placeholder="Colors you love, occasion, delivery address..."></textarea>
-        </div>
-        <button type="submit" class="btn-primary">Send request →</button>
-        <p class="form-note">This opens your email app with the request pre-filled, addressed to fleurdelumiere16@gmail.com.</p>
-      </form>
+      </div>
     </div>
 
-    <div class="form-success" id="order-success-view">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5L16 9"/></svg>
-      <h3>Request ready to send</h3>
-      <p class="sub">Your email app should have opened with the details filled in. Just hit send and we'll reply within the day.</p>
-      <button class="btn-primary" onclick="closeOrderModal()">Done</button>
+    <div class="login-overlay" id="login-overlay">
+      <div class="login-box">
+        <button class="modal-close" onclick="closeAdminLogin()" type="button" aria-label="Close login">
+          ✕
+        </button>
+        <h3>Admin login</h3>
+        <p class="sub">Sign in to update collection titles and prices.</p>
+        <form id="admin-login-form">
+          <div class="field">
+            <label for="login-username">Username</label>
+            <input type="text" id="login-username" autocomplete="username" required />
+          </div>
+          <div class="field">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" autocomplete="current-password" required />
+          </div>
+          <button type="submit" class="btn-primary">Sign in</button>
+          <div class="login-error" id="login-error"></div>
+        </form>
+      </div>
     </div>
 
-  </div>
-</div>
+    <div class="admin-overlay" id="admin-overlay">
+      <div class="admin-box">
+        <button class="modal-close" onclick="closeAdminEdit()" type="button" aria-label="Close editor">
+          ✕
+        </button>
+        <h3 id="admin-edit-heading">Edit product</h3>
+        <p class="sub" id="admin-edit-sub">Update the collection title, price, and item details.</p>
+        <form id="admin-edit-form">
+          <input type="hidden" id="admin-edit-index" />
+          <div class="field">
+            <label for="admin-edit-name">Product title</label>
+            <input type="text" id="admin-edit-name" required />
+          </div>
+          <div class="field">
+            <label for="admin-edit-tag">Tag</label>
+            <input type="text" id="admin-edit-tag" />
+          </div>
+          <div class="field">
+            <label for="admin-edit-priceText">Price text</label>
+            <input type="text" id="admin-edit-priceText" required />
+          </div>
+          <div class="field">
+            <label for="admin-edit-fullName">Full name</label>
+            <input type="text" id="admin-edit-fullName" />
+          </div>
+          <div class="field">
+            <label for="admin-edit-description">Description</label>
+            <textarea id="admin-edit-description" rows="3"></textarea>
+          </div>
+          <div class="field">
+            <label for="admin-edit-sku">SKU</label>
+            <input type="text" id="admin-edit-sku" />
+          </div>
+          <div class="field">
+            <label for="admin-edit-size">Size</label>
+            <input type="text" id="admin-edit-size" />
+          </div>
+          <div class="field">
+            <label for="admin-edit-availability">Availability</label>
+            <input type="text" id="admin-edit-availability" />
+          </div>
+          <div class="field">
+            <label for="admin-edit-care">Care instructions</label>
+            <input type="text" id="admin-edit-care" />
+          </div>
+          <div class="field">
+            <label for="admin-edit-images">Images</label>
+            <input type="file" id="admin-edit-images" accept="image/*" multiple />
+            <div class="image-preview" id="admin-edit-image-preview"></div>
+          </div>
+          <button type="submit" class="btn-primary" id="admin-edit-submit">Save changes</button>
+        </form>
+      </div>
+    </div>
 
-<script>
-  function openOrderModal(itemLabel){
-    document.getElementById('order-item-label').textContent = itemLabel;
-    document.getElementById('order-form-view').style.display = 'block';
-    document.getElementById('order-success-view').classList.remove('show');
-    document.getElementById('order-modal').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeOrderModal(){
-    document.getElementById('order-modal').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-  document.getElementById('order-form').addEventListener('submit', function(e){
-    e.preventDefault();
-    var name = document.getElementById('of-name').value;
-    var email = document.getElementById('of-email').value;
-    var date = document.getElementById('of-date').value;
-    var message = document.getElementById('of-message').value;
-    var item = document.getElementById('order-item-label').textContent;
-    var subject = 'Bouquet request: ' + item;
-    var body = 'Name: ' + name + '\n' + 'Email: ' + email + '\n' + 'Preferred date: ' + (date || 'Not specified') + '\n\n' + 'Notes:\n' + (message || 'None');
-    var mailto = 'mailto:fleurdelumiere16@gmail.com' + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-    window.location.href = mailto;
-    document.getElementById('order-form-view').style.display = 'none';
-    document.getElementById('order-success-view').classList.add('show');
-  });
-</script>
+    <div class="checkout-overlay" id="checkout-overlay">
+      <div class="checkout-box">
+        <button
+          class="checkout-close"
+          onclick="closeCheckout()"
+          aria-label="Close checkout"
+        >
+          ✕
+        </button>
+        <div class="checkout-header">
+          <h2>Checkout</h2>
+          <p>Review your order and complete your details below.</p>
+        </div>
+        <div class="checkout-section" id="checkout-items"></div>
+        <div class="checkout-section">
+          <h3>Delivery information</h3>
+          <div class="form-row full">
+            <div class="form-group">
+              <label for="checkout-email">Email</label
+              ><input
+                id="checkout-email"
+                type="email"
+                placeholder="your@email.com"
+              />
+            </div>
+          </div>
+          <div class="form-row full">
+            <div class="form-group">
+              <label for="checkout-name">Name</label
+              ><input id="checkout-name" type="text" placeholder="Your name" />
+            </div>
+            <div class="form-group">
+              <label for="checkout-phone">Phone</label
+              ><input
+                id="checkout-phone"
+                type="text"
+                placeholder="Phone number"
+              />
+            </div>
+          </div>
+          <div class="form-row full">
+            <div class="form-group">
+              <label for="checkout-address">Address</label
+              ><input
+                id="checkout-address"
+                type="text"
+                placeholder="Delivery address"
+              />
+            </div>
+          </div>
+          <div class="form-row full">
+            <div class="form-group">
+              <label for="checkout-note">Order note</label
+              ><input
+                id="checkout-note"
+                type="text"
+                placeholder="Optional note"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="checkout-total">
+          <span>Total payment</span>
+          <span class="checkout-total-price" id="checkout-total-price">₱0</span>
+        </div>
+        <button class="btn-place-order" onclick="placeOrder()">
+          Place order
+        </button>
+      </div>
+    </div>
 
-</body>
+    <div class="success-overlay" id="success-overlay">
+      <div class="success-box">
+        <h3>Order submitted</h3>
+        <p>
+          Your order has been sent automatically to the owner. You should
+          receive an email confirmation soon.
+        </p>
+        <button class="btn-success" onclick="closeSuccess()">
+          Continue shopping
+        </button>
+      </div>
+    </div>
+
+    <footer>
+      <div class="wrap">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            Fleurae Atelier
+            <p>A small floral atelier working in season, by hand, every day.</p>
+          </div>
+          <div class="footer-col">
+            <h4>Studio</h4>
+            <a href="index.html#philosophy">Our approach</a>
+            <a href="index.html#process">How we work</a>
+            <a href="collections.html">This week's stems</a>
+          </div>
+          <div class="footer-col">
+            <h4>Follow</h4>
+            <div class="social-row">
+              <a
+                class="social-icon"
+                href="https://facebook.com/"
+                target="_blank"
+                rel="noopener"
+                aria-label="Facebook"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#D8DCCF"
+                  stroke-width="1.6"
+                >
+                  <path
+                    d="M15 8h-2a2 2 0 0 0-2 2v3H9v3h2v6h3v-6h2.2l.8-3H14v-2a1 1 0 0 1 1-1h2V8Z"
+                  />
+                </svg>
+              </a>
+              <a
+                class="social-icon"
+                href="https://instagram.com/"
+                target="_blank"
+                rel="noopener"
+                aria-label="Instagram"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#D8DCCF"
+                  stroke-width="1.6"
+                >
+                  <rect x="4" y="4" width="16" height="16" rx="5" />
+                  <circle cx="12" cy="12" r="3.4" />
+                  <circle cx="16.6" cy="7.4" r="0.6" fill="#D8DCCF" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>© 2026 Fleurae Atelier Floral Atelier</span>
+          <span>Cut fresh, arranged daily</span>
+        </div>
+      </div>
+    </footer>
+
+    <div class="modal-overlay" id="order-modal">
+      <div class="modal-box">
+        <div
+          class="modal-close"
+          onclick="closeOrderModal()"
+          role="button"
+          aria-label="Close form"
+          tabindex="0"
+        >
+          ✕
+        </div>
+
+        <div id="order-form-view">
+          <h3>Reserve your bouquet</h3>
+          <p class="sub" id="order-item-label">General inquiry</p>
+          <form id="order-form">
+            <div class="field">
+              <label for="of-name">Your name</label>
+              <input type="text" id="of-name" required />
+            </div>
+            <div class="field">
+              <label for="of-email">Email address</label>
+              <input type="email" id="of-email" required />
+            </div>
+            <div class="field">
+              <label for="of-date">Preferred pickup or delivery date</label>
+              <input type="date" id="of-date" />
+            </div>
+            <div class="field">
+              <label for="of-message">Anything we should know?</label>
+              <textarea
+                id="of-message"
+                placeholder="Colors you love, occasion, delivery address..."
+              ></textarea>
+            </div>
+            <button type="submit" class="btn-primary">Send request →</button>
+            <p class="form-note">
+              This opens your email app with the request pre-filled, addressed
+              to fleuraeatelier2024@gmail.com and cc to your email for receipt.
+            </p>
+          </form>
+        </div>
+
+        <div class="form-success" id="order-success-view">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M8 12.5l2.5 2.5L16 9" />
+          </svg>
+          <h3>Request ready to send</h3>
+          <p class="sub">
+            Your email app should have opened with the details filled in. Just
+            hit send and we'll reply within the day.
+          </p>
+          <button class="btn-primary" onclick="closeOrderModal()">Done</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Product data with multiple images
+      var products = [
+        {
+          name: "Sunflower Stroll",
+          tag: "Summer bloom",
+          priceText: "₱68",
+          priceValue: 68,
+          description:
+            "Bright sunflowers wrapped in white paper with a cheerful yellow ribbon and fresh greenery.",
+          images: ["./img/2.png"],
+          sku: "FS-001",
+          size: "Medium — approx. 30cm tall",
+          availability: "Made to order (2–3 days)",
+          care: "Trim stems and refresh water every 2 days. Keep out of direct hot sun.",
+          fullName: "Sunflower Stroll — ₱68",
+        },
+        {
+          name: "Lavender Dream",
+          tag: "Lilac dream",
+          priceText: "₱68",
+          priceValue: 68,
+          description:
+            "Soft purple blossoms with delicate accents tucked into a dreamy paper wrap.",
+          images: ["./img/3.png"],
+          sku: "LD-002",
+          size: "Small — hand-tied posy",
+          care: "Keep in cool spot; mist lightly. Replace water daily for best longevity.",
+          fullName: "Lavender Dream — ₱68",
+        },
+        {
+          name: "Petite Garden Trio",
+          tag: "Wild gathered",
+          priceText: "₱54",
+          priceValue: 54,
+          description:
+            "Three pastel floral pots arranged as a charming tabletop accent.",
+          images: [
+            "./img/4.png",
+            "./img/214.png",
+            "./img/215.png",
+            "./img/215.png",
+          ],
+          fullName: "Petite Garden Trio — ₱54",
+        },
+        {
+          name: "Blushing Garden",
+          tag: "Romantic",
+          priceText: "₱92",
+          priceValue: 92,
+          description:
+            "Soft pink blooms arranged in airy white paper with a delicate feminine feel.",
+          images: ["./img/5.png"],
+          fullName: "Blushing Garden — ₱92",
+        },
+        {
+          name: "Starflower Stem",
+          tag: "Signature",
+          priceText: "₱92",
+          priceValue: 92,
+          description:
+            "A handcrafted stem of layered petals in blue and purple for a striking accent.",
+          images: ["./img/6.png"],
+          fullName: "Starflower Stem — ₱92",
+        },
+        {
+          name: "Twilight Roses",
+          tag: "Evening elegance",
+          priceText: "₱85",
+          priceValue: 85,
+          description:
+            "Deep burgundy and blush roses arranged in romantic clusters with lush green foliage.",
+          images: [
+            "./img/205.png",
+            "./img/204.png",
+            "./img/203.png",
+            "./img/202.png",
+            "./img/201.png",
+          ],
+          fullName: "Twilight Roses — ₱85",
+        },
+        {
+          name: "Coral Cascade",
+          tag: "Vibrant beauty",
+          priceText: "₱78",
+          priceValue: 78,
+          description:
+            "Soft coral blooms with cream accents, perfect for brightening any space with warmth.",
+          images: ["./img/206.png"],
+          fullName: "Coral Cascade — ₱78",
+        },
+        {
+          name: "Emerald Dream",
+          tag: "Garden fresh",
+          priceText: "₱72",
+          priceValue: 72,
+          description:
+            "Mixed greens and white flowers creating a serene and natural arrangement.",
+          images: ["./img/207.png"],
+          fullName: "Emerald Dream — ₱72",
+        },
+        {
+          name: "Golden Hour",
+          tag: "Sunset vibes",
+          priceText: "₱838",
+          priceValue: 838,
+          description:
+            "Warm golden and peachy tones with bronze foliage for a glowing evening arrangement.",
+          images: ["./img/209.png", "./img/208.png"],
+          size: "Large — gift wrap option available",
+          care: "Keep away from heat; change water every other day.",
+          fullName: "Golden Hour — ₱838",
+        },
+        {
+          name: "In Loving Memory Basket",
+          tag: "Sunset vibes",
+          priceText: "₱218",
+          priceValue: 218,
+          description:
+            "A graceful and elegant arrangement featuring handmade cream satin roses in a delicate basket. A peaceful, timeless keepsake designed to honor and remember your loved ones.",
+          images: ["./img/213.png", "./img/212.png", "./img/210.png"],
+          size: "Large – gift wrap option available",
+          care: "Keep away from moisture and direct sunlight; dust gently with a soft brush to maintain the satin petals.",
+          fullName: "In Loving Memory Basket – ₱218",
+        },
+        {
+          name: "Prosperity Sunflower Bouquet",
+          tag: "Sunset vibes",
+          priceText: "₱148",
+          priceValue: 148,
+          description:
+            "A bright and cheerful combination of vibrant sunflowers and elegantly folded cash. The ultimate celebratory gift perfect for graduations, birthdays, and big milestones.",
+          images:
+            "Warm golden and peachy tones with bronze foliage for a glowing evening arrangement.",
+          images: ["./img/209.png", "./img/208.png"],
+          size: "Large – gift wrap option available",
+          care: "Keep in a dry environment; avoid direct heat or moisture to safeguard the cash elements.",
+          fullName: "Prosperity Sunflower Bouquet – ₱148",
+        },
+        {
+          name: "Cheers & Crunch Bouquet",
+          tag: "Sunset vibes",
+          priceText: "₱88",
+          priceValue: 88,
+          description:
+            "The perfect mix of fun and flavor! Features striking blue flowers paired with a mini bottle of spirits and classic Sugo salted peanuts for an unforgettable celebration gift.",
+          images: [
+            "./img/220.png",
+            "./img/219.png",
+            "./img/218.png",
+            "./img/217.png",
+          ],
+          size: "Large – gift wrap option available",
+          care: "Store in a cool, dry place; ensure food items are kept away from direct sunlight.",
+          fullName: "Cheers & Crunch Bouquet – ₱88",
+        },
+      ];
+
+      var currentProductIndex = 0;
+      var adminLoggedIn = false;
+      var currentEditImages = [];
+
+      // populate on load
+      function loadAdminState() {
+        adminLoggedIn = localStorage.getItem("flowershopAdminLoggedIn") === "true";
+        var edits = localStorage.getItem("flowershopProductEdits");
+        if (edits) {
+          try {
+            var saved = JSON.parse(edits);
+            Object.keys(saved)
+              .map(function (key) {
+                return parseInt(key, 10);
+              })
+              .sort(function (a, b) {
+                return a - b;
+              })
+              .forEach(function (index) {
+                if (Number.isNaN(index)) return;
+                if (products[index]) {
+                  Object.assign(products[index], saved[index]);
+                } else {
+                  products[index] = saved[index];
+                }
+              });
+          } catch (err) {
+            console.error("Unable to load saved product edits", err);
+          }
+        }
+      }
+
+      function updateAdminUI() {
+        document.body.classList.toggle("admin-enabled", adminLoggedIn);
+        var status = document.getElementById("admin-status");
+        if (status) {
+          status.style.display = adminLoggedIn ? "inline-flex" : "none";
+          status.textContent = adminLoggedIn ? "Admin mode" : "";
+        }
+      }
+
+      var adminHoldTimer = null;
+      var adminHoldTriggered = false;
+
+      function logoutAdmin() {
+        adminLoggedIn = false;
+        localStorage.removeItem("flowershopAdminLoggedIn");
+        updateAdminUI();
+        renderProductGrid();
+      }
+
+      function handleAdminLogoPressStart(event) {
+        adminHoldTriggered = false;
+        if (adminHoldTimer) {
+          clearTimeout(adminHoldTimer);
+        }
+        adminHoldTimer = setTimeout(function () {
+          adminHoldTriggered = true;
+          openAdminLogin();
+        }, 1000);
+      }
+
+      function handleAdminLogoPressEnd(event) {
+        if (adminHoldTimer) {
+          clearTimeout(adminHoldTimer);
+          adminHoldTimer = null;
+        }
+      }
+
+      function handleAdminLogoClick(event) {
+        if (adminHoldTriggered) {
+          event.preventDefault();
+          adminHoldTriggered = false;
+        }
+      }
+
+      function setupAdminLogoTrigger() {
+        var logo = document.getElementById("admin-logo-trigger");
+        if (!logo) return;
+        logo.addEventListener("mousedown", handleAdminLogoPressStart);
+        logo.addEventListener("touchstart", handleAdminLogoPressStart);
+        logo.addEventListener("mouseup", handleAdminLogoPressEnd);
+        logo.addEventListener("mouseleave", handleAdminLogoPressEnd);
+        logo.addEventListener("touchend", handleAdminLogoPressEnd);
+        logo.addEventListener("touchcancel", handleAdminLogoPressEnd);
+        logo.addEventListener("click", handleAdminLogoClick);
+      }
+
+      function setupAdminReadyTrigger() {
+        var readyTrigger = document.getElementById("admin-ready-trigger");
+        if (!readyTrigger) return;
+        readyTrigger.addEventListener("click", function (event) {
+          event.preventDefault();
+          openAdminLogin();
+        });
+      }
+
+      function readFilesAsDataURLs(files) {
+        return Promise.all(
+          Array.from(files).map(
+            (file) =>
+              new Promise(function (resolve, reject) {
+                var reader = new FileReader();
+                reader.onload = function () {
+                  resolve(reader.result);
+                };
+                reader.onerror = function () {
+                  reject(reader.error);
+                };
+                reader.readAsDataURL(file);
+              })
+          )
+        );
+      }
+
+      function renderImagePreview(images) {
+        var preview = document.getElementById("admin-edit-image-preview");
+        if (!preview) return;
+        preview.innerHTML = "";
+        (images || []).forEach(function (src) {
+          var img = document.createElement("img");
+          img.src = src;
+          img.alt = "Image preview";
+          preview.appendChild(img);
+        });
+      }
+
+      function openAdminLogin() {
+        document.getElementById("login-overlay").classList.add("open");
+        document.body.style.overflow = "hidden";
+        document.getElementById("login-error").textContent = "";
+        document.getElementById("login-username").focus();
+      }
+
+      function closeAdminLogin() {
+        document.getElementById("login-overlay").classList.remove("open");
+        document.body.style.overflow = "";
+      }
+
+      function openAdminEdit(index) {
+        if (!adminLoggedIn) {
+          openAdminLogin();
+          return;
+        }
+        var product = products[index] || {
+          name: "",
+          tag: "",
+          priceText: "",
+          description: "",
+          images: [],
+          sku: "",
+          size: "",
+          availability: "",
+          care: "",
+          fullName: "",
+        };
+        document.getElementById("admin-edit-heading").textContent =
+          index === -1 ? "Add new item" : "Edit product";
+        document.getElementById("admin-edit-sub").textContent =
+          index === -1
+            ? "Add a new collection item with images and full details."
+            : "Update the collection title, price, images, and details.";
+        document.getElementById("admin-edit-submit").textContent =
+          index === -1 ? "Add item" : "Save changes";
+        document.getElementById("admin-edit-index").value = index;
+        document.getElementById("admin-edit-name").value = product.name || "";
+        document.getElementById("admin-edit-tag").value = product.tag || "";
+        document.getElementById("admin-edit-priceText").value = product.priceText || "";
+        document.getElementById("admin-edit-fullName").value =
+          product.fullName || product.name + " — " + product.priceText;
+        document.getElementById("admin-edit-description").value =
+          product.description || "";
+        document.getElementById("admin-edit-sku").value = product.sku || "";
+        document.getElementById("admin-edit-size").value = product.size || "";
+        document.getElementById("admin-edit-availability").value =
+          product.availability || "";
+        document.getElementById("admin-edit-care").value = product.care || "";
+        document.getElementById("admin-edit-images").value = "";
+        currentEditImages = Array.isArray(product.images)
+          ? product.images.slice()
+          : [];
+        renderImagePreview(currentEditImages);
+        document.getElementById("admin-overlay").classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeAdminEdit() {
+        document.getElementById("admin-overlay").classList.remove("open");
+        document.body.style.overflow = "";
+      }
+
+      function saveProductEdits() {
+        var edits = {};
+        cart = cart || [];
+        products.forEach(function (product, index) {
+          edits[index] = {
+            name: product.name,
+            tag: product.tag,
+            priceText: product.priceText,
+            priceValue: product.priceValue,
+            description: product.description,
+            images: product.images || [],
+            sku: product.sku || "",
+            size: product.size || "",
+            availability: product.availability || "",
+            care: product.care || "",
+            fullName: product.fullName,
+          };
+        });
+        localStorage.setItem("flowershopProductEdits", JSON.stringify(edits));
+      }
+
+      function handleAdminLogin(event) {
+        event.preventDefault();
+        var username = document.getElementById("login-username").value.trim();
+        var password = document.getElementById("login-password").value.trim();
+        var error = document.getElementById("login-error");
+        if (username === "admin" && password === "flowershop") {
+          adminLoggedIn = true;
+          localStorage.setItem("flowershopAdminLoggedIn", "true");
+          updateAdminUI();
+          closeAdminLogin();
+          renderProductGrid();
+          return;
+        }
+        error.textContent = "Invalid username or password.";
+      }
+
+      async function handleAdminEdit(event) {
+        event.preventDefault();
+        var index = parseInt(document.getElementById("admin-edit-index").value, 10);
+        if (isNaN(index)) return;
+        var isNew = index === -1;
+        var name = document.getElementById("admin-edit-name").value.trim();
+        var tag = document.getElementById("admin-edit-tag").value.trim();
+        var priceText = document.getElementById("admin-edit-priceText").value.trim();
+        var fullNameValue = document
+          .getElementById("admin-edit-fullName")
+          .value.trim();
+        var description = document
+          .getElementById("admin-edit-description")
+          .value.trim();
+        var sku = document.getElementById("admin-edit-sku").value.trim();
+        var size = document.getElementById("admin-edit-size").value.trim();
+        var availability = document
+          .getElementById("admin-edit-availability")
+          .value.trim();
+        var care = document.getElementById("admin-edit-care").value.trim();
+        var images = currentEditImages.slice();
+        var files = document.getElementById("admin-edit-images").files;
+        if (files && files.length) {
+          var newImages = await readFilesAsDataURLs(files);
+          images = images.concat(newImages);
+        }
+        var productData = {
+          name: name,
+          tag: tag,
+          priceText: priceText,
+          priceValue: parseFloat(priceText.replace(/[^0-9.]/g, "")) || 0,
+          description: description,
+          images: images,
+          sku: sku,
+          size: size,
+          availability: availability,
+          care: care,
+          fullName: fullNameValue || name + " — " + priceText,
+        };
+        if (isNew) {
+          products.push(productData);
+        } else if (products[index]) {
+          Object.assign(products[index], productData);
+        }
+        saveProductEdits();
+        renderProductGrid();
+        closeAdminEdit();
+      }
+
+      function deleteProduct(index) {
+        if (!adminLoggedIn) {
+          openAdminLogin();
+          return;
+        }
+        var product = products[index];
+        if (!product) return;
+        var confirmed = confirm('Delete "' + product.name + '" from the collection?');
+        if (!confirmed) return;
+        products.splice(index, 1);
+        saveProductEdits();
+        renderProductGrid();
+      }
+
+      function renderProductGrid() {
+        var grid =
+          document.getElementById("card-grid") ||
+          document.querySelector(".card-grid");
+        if (!grid) return;
+        grid.innerHTML = products
+          .map(function (p, i) {
+            var img = p.images && p.images[0] ? p.images[0] : "";
+            var alt = p.fullName || p.name || "";
+            return (
+              '<div class="card" onclick="openProductDetail(' +
+              i +
+              ')" role="button" tabindex="0" onkeydown="if(event.key===\'Enter\'||event.key===\' \') { event.preventDefault(); openProductDetail(' +
+              i +
+              '); }">' +
+              '<div class="card-art"><img src="' +
+              img +
+              '" alt="' +
+              alt +
+              '"><div class="card-art-actions">' +
+              '<button class="card-action-btn admin-edit-btn" onclick="event.stopPropagation(); openAdminEdit(' +
+              i +
+              ')">Edit</button>' +
+              '<button class="card-action-btn admin-delete-btn" onclick="event.stopPropagation(); deleteProduct(' +
+              i +
+              ')">Del</button>' +
+              '</div></div>' +
+              '<div class="card-body"><span class="tag">' +
+              (p.tag || "") +
+              "</span><h3>" +
+              p.name +
+              "</h3><p>" +
+              p.description +
+              "</p>" +
+              '<div class="card-foot"><span class="price">' +
+              (p.priceText || "") +
+              '</span><span class="card-view">View <span aria-hidden="true">→</span></span></div>' +
+              '<button class="card-add-btn" onclick="event.stopPropagation(); addToCartIndex(' +
+              i +
+              ')">Add to Cart</button></div>' +
+              "</div>"
+            );
+          })
+          .join("");
+      }
+      // populate on load
+      document.addEventListener("DOMContentLoaded", function () {
+        loadAdminState();
+        renderProductGrid();
+        updateAdminUI();
+        setupAdminLogoTrigger();
+        setupAdminReadyTrigger();
+        document
+          .getElementById("admin-login-form")
+          .addEventListener("submit", handleAdminLogin);
+        document
+          .getElementById("admin-edit-form")
+          .addEventListener("submit", handleAdminEdit);
+        var imageInput = document.getElementById("admin-edit-images");
+        if (imageInput) {
+          imageInput.addEventListener("change", handleAdminImageFiles);
+        }
+      });
+
+      function handleAdminImageFiles(event) {
+        var files = event.target.files;
+        if (!files || !files.length) return;
+        readFilesAsDataURLs(files).then(function (newImages) {
+          currentEditImages = currentEditImages.concat(newImages);
+          renderImagePreview(currentEditImages);
+        });
+      }
+
+      function openProductDetail(index) {
+        currentProductIndex = index;
+        var product = products[index];
+        document.getElementById("product-tag").textContent = product.tag;
+        document.getElementById("product-title").textContent = product.name;
+        document.getElementById("product-price").textContent =
+          product.priceText;
+        document.getElementById("product-desc").textContent =
+          product.description;
+        // Populate additional product details (if present)
+        var detailsEl = document.getElementById("product-details");
+        detailsEl.innerHTML = "";
+        var dl = document.createElement("dl");
+        function addDetail(label, value) {
+          if (!value) return;
+          var dt = document.createElement("dt");
+          dt.textContent = label;
+          var dd = document.createElement("dd");
+          dd.textContent = value;
+          dl.appendChild(dt);
+          dl.appendChild(dd);
+        }
+        addDetail("Full name", product.fullName || product.name);
+        addDetail("SKU", product.sku);
+        addDetail("Size", product.size);
+        addDetail("Availability", product.availability);
+        addDetail("Care", product.care);
+        if (dl.children.length) detailsEl.appendChild(dl);
+        document.getElementById("qty-input").value = 1;
+
+        // Set main image
+        document.getElementById("product-main-img").src = product.images[0];
+
+        // Create thumbnails
+        var thumbsContainer = document.getElementById("product-thumbs");
+        thumbsContainer.innerHTML = "";
+        product.images.forEach(function (img, i) {
+          var thumb = document.createElement("img");
+          thumb.src = img;
+          thumb.className = i === 0 ? "active" : "";
+          thumb.addEventListener("click", function () {
+            switchImage(i);
+          });
+          thumbsContainer.appendChild(thumb);
+        });
+
+        document.getElementById("product-detail-overlay").classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeProductDetail() {
+        document
+          .getElementById("product-detail-overlay")
+          .classList.remove("open");
+        document.body.style.overflow = "";
+      }
+
+      function switchImage(index) {
+        var product = products[currentProductIndex];
+        document.getElementById("product-main-img").src = product.images[index];
+
+        var thumbs = document.querySelectorAll(
+          ".product-detail-gallery-thumbs img",
+        );
+        thumbs.forEach(function (thumb, i) {
+          thumb.classList.toggle("active", i === index);
+        });
+      }
+
+      function incrementQty() {
+        var qtyInput = document.getElementById("qty-input");
+        qtyInput.value = parseInt(qtyInput.value, 10) + 1;
+      }
+
+      function decrementQty() {
+        var qtyInput = document.getElementById("qty-input");
+        var current = parseInt(qtyInput.value, 10);
+        if (current > 1) {
+          qtyInput.value = current - 1;
+        }
+      }
+
+      var cart = [];
+
+      function addToCart() {
+        var qty = parseInt(document.getElementById("qty-input").value, 10) || 1;
+        var product = products[currentProductIndex];
+        var existing = cart.find(function (item) {
+          return item.index === currentProductIndex;
+        });
+        if (existing) {
+          existing.quantity += qty;
+        } else {
+          cart.push({ index: currentProductIndex, quantity: qty });
+        }
+        updateCart();
+        closeProductDetail();
+        openCart();
+      }
+
+      function addToCartIndex(index) {
+        currentProductIndex = index;
+        var existing = cart.find(function (item) {
+          return item.index === index;
+        });
+        if (existing) {
+          existing.quantity += 1;
+        } else {
+          cart.push({ index: index, quantity: 1 });
+        }
+        updateCart();
+        openCart();
+      }
+
+      function buyNow() {
+        var qty = parseInt(document.getElementById("qty-input").value, 10) || 1;
+        cart = [{ index: currentProductIndex, quantity: qty }];
+        updateCart();
+        closeProductDetail();
+        openCheckout();
+      }
+
+      function updateCart() {
+        var totalItems = cart.reduce(function (sum, item) {
+          return sum + item.quantity;
+        }, 0);
+        var badge = document.getElementById("cart-badge");
+        if (totalItems > 0) {
+          badge.style.display = "flex";
+          badge.textContent = totalItems;
+        } else {
+          badge.style.display = "none";
+        }
+        renderCartItems();
+      }
+
+      function renderCartItems() {
+        var cartItems = document.getElementById("cart-items");
+        cartItems.innerHTML = "";
+        if (cart.length === 0) {
+          cartItems.innerHTML =
+            '<div class="cart-empty">Your cart is empty.</div>';
+          document.getElementById("cart-total-price").textContent = "₱0";
+          return;
+        }
+        cart.forEach(function (item) {
+          var product = products[item.index];
+          var itemTotal = product.priceValue * item.quantity;
+          var cartItem = document.createElement("div");
+          cartItem.className = "cart-item";
+          cartItem.innerHTML =
+            '<div class="cart-item-img"><img src="' +
+            product.images[0] +
+            '" alt="' +
+            product.name +
+            '"></div>' +
+            '<div class="cart-item-details"><div class="cart-item-name">' +
+            product.name +
+            "</div>" +
+            '<div class="cart-item-price">₱' +
+            itemTotal +
+            "</div>" +
+            '<div class="cart-item-qty">Qty: ' +
+            item.quantity +
+            "</div></div>" +
+            '<button class="cart-item-remove" onclick="removeCartItem(' +
+            item.index +
+            ')">×</button>';
+          cartItems.appendChild(cartItem);
+        });
+        document.getElementById("cart-total-price").textContent =
+          "₱" +
+          cart.reduce(function (sum, item) {
+            return sum + products[item.index].priceValue * item.quantity;
+          }, 0);
+      }
+
+      function removeCartItem(index) {
+        cart = cart.filter(function (item) {
+          return item.index !== index;
+        });
+        updateCart();
+      }
+
+      function openCart() {
+        updateCart();
+        document.getElementById("cart-overlay").classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeCart() {
+        document.getElementById("cart-overlay").classList.remove("open");
+        document.body.style.overflow = "";
+      }
+
+      function openCheckout() {
+        if (cart.length === 0) {
+          return;
+        }
+        renderCheckoutItems();
+        document.getElementById("checkout-total-price").textContent =
+          "₱" +
+          cart.reduce(function (sum, item) {
+            return sum + products[item.index].priceValue * item.quantity;
+          }, 0);
+        document.getElementById("checkout-overlay").classList.add("open");
+        document.getElementById("cart-overlay").classList.remove("open");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeCheckout() {
+        document.getElementById("checkout-overlay").classList.remove("open");
+        document.body.style.overflow = "";
+      }
+
+      function renderCheckoutItems() {
+        var checkoutItems = document.getElementById("checkout-items");
+        checkoutItems.innerHTML = "";
+        cart.forEach(function (item) {
+          var product = products[item.index];
+          var checkoutItem = document.createElement("div");
+          checkoutItem.className = "checkout-item";
+          checkoutItem.innerHTML =
+            '<div class="checkout-item-img"><img src="' +
+            product.images[0] +
+            '" alt="' +
+            product.name +
+            '"></div>' +
+            '<div class="checkout-item-info"><div class="checkout-item-name">' +
+            product.name +
+            "</div>" +
+            '<div class="checkout-item-price">₱' +
+            product.priceValue * item.quantity +
+            "</div>" +
+            '<div class="checkout-item-qty">Qty: ' +
+            item.quantity +
+            "</div></div>";
+          checkoutItems.appendChild(checkoutItem);
+        });
+      }
+
+      function placeOrder() {
+        var email = document.getElementById("checkout-email").value.trim();
+        var name = document.getElementById("checkout-name").value.trim();
+        var phone = document.getElementById("checkout-phone").value.trim();
+        var address = document.getElementById("checkout-address").value.trim();
+        var note = document.getElementById("checkout-note").value.trim();
+        if (!email || !name || !phone || !address) {
+          alert(
+            "Please fill in your email, name, phone, and address to place an order.",
+          );
+          return;
+        }
+        var total = cart.reduce(function (sum, item) {
+          return sum + products[item.index].priceValue * item.quantity;
+        }, 0);
+        var orderDate = new Date().toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+        var body =
+          "=== NEW ORDER FROM FLEURAE ATELIER ===" +
+          "\n\nOrder Date: " +
+          orderDate +
+          "\n\n--- CUSTOMER DETAILS ---" +
+          "\nName: " +
+          name +
+          "\nEmail: " +
+          email +
+          "\nPhone: " +
+          phone +
+          "\nDelivery Address: " +
+          address +
+          "\nNotes: " +
+          (note || "None") +
+          "\n\n--- ORDER ITEMS ---\n";
+        cart.forEach(function (item) {
+          var product = products[item.index];
+          var itemSubtotal = product.priceValue * item.quantity;
+          body +=
+            product.name +
+            " x" +
+            item.quantity +
+            " @ ₱" +
+            product.priceValue +
+            " = ₱" +
+            itemSubtotal +
+            "\n";
+        });
+        body += "\n--- ORDER TOTAL ---" + "\nSubtotal: ₱" + total + "\n";
+        var orderSummary = "";
+        cart.forEach(function (item) {
+          var product = products[item.index];
+          var itemSubtotal = product.priceValue * item.quantity;
+          orderSummary +=
+            product.name +
+            " x" +
+            item.quantity +
+            " @ ₱" +
+            product.priceValue +
+            " = ₱" +
+            itemSubtotal +
+            "\n";
+        });
+        orderSummary += "\nTotal: ₱" + total;
+
+        var formData = new FormData();
+        formData.append("email", email);
+        formData.append("_replyto", email);
+        formData.append("_cc", email);
+        formData.append("_to", "fleuraeatelier2024@gmail.com");
+        formData.append("name", name);
+        formData.append("phone", phone);
+        formData.append("address", address);
+        formData.append("note", note || "None");
+        formData.append("_subject", "New Order - " + name + " - ₱" + total);
+        formData.append("order_summary", orderSummary);
+
+        fetch("https://formspree.io/f/xvzeavor", {
+          method: "POST",
+          body: formData,
+          headers: {
+            Accept: "application/json",
+          },
+        })
+          .then(function (response) {
+            if (response.ok) {
+              closeCheckout();
+              closeCart();
+              cart = [];
+              updateCart();
+              showOrderSuccess();
+            } else {
+              return response.json().then(function (data) {
+                throw new Error(data.error || "Unable to send order");
+              });
+            }
+          })
+          .catch(function (error) {
+            alert(
+              "Sorry, we could not send your order automatically. Please try again later.",
+            );
+            console.error("Order submission error:", error);
+          });
+      }
+
+      // Close on escape key
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+          if (
+            document
+              .getElementById("product-detail-overlay")
+              .classList.contains("open")
+          ) {
+            closeProductDetail();
+          }
+          if (
+            document.getElementById("cart-overlay").classList.contains("open")
+          ) {
+            closeCart();
+          }
+          if (
+            document
+              .getElementById("checkout-overlay")
+              .classList.contains("open")
+          ) {
+            closeCheckout();
+          }
+          if (
+            document.getElementById("login-overlay").classList.contains("open")
+          ) {
+            closeAdminLogin();
+          }
+          if (
+            document.getElementById("admin-overlay").classList.contains("open")
+          ) {
+            closeAdminEdit();
+          }
+        }
+      });
+
+      // Close when clicking outside
+      document
+        .getElementById("product-detail-overlay")
+        .addEventListener("click", function (e) {
+          if (e.target === this) {
+            closeProductDetail();
+          }
+        });
+      document
+        .getElementById("cart-overlay")
+        .addEventListener("click", function (e) {
+          if (e.target === this) {
+            closeCart();
+          }
+        });
+      document
+        .getElementById("checkout-overlay")
+        .addEventListener("click", function (e) {
+          if (e.target === this) {
+            closeCheckout();
+          }
+        });
+      document
+        .getElementById("login-overlay")
+        .addEventListener("click", function (e) {
+          if (e.target === this) {
+            closeAdminLogin();
+          }
+        });
+      document
+        .getElementById("admin-overlay")
+        .addEventListener("click", function (e) {
+          if (e.target === this) {
+            closeAdminEdit();
+          }
+        });
+
+      function showOrderSuccess() {
+        document.getElementById("success-overlay").classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeSuccess() {
+        document.getElementById("success-overlay").classList.remove("open");
+        document.body.style.overflow = "";
+      }
+
+      function openOrderModal(itemLabel) {
+        document.getElementById("order-item-label").textContent = itemLabel;
+        document.getElementById("order-form-view").style.display = "block";
+        document.getElementById("order-success-view").classList.remove("show");
+        document.getElementById("order-modal").classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+      function closeOrderModal() {
+        document.getElementById("order-modal").classList.remove("open");
+        document.body.style.overflow = "";
+      }
+      document
+        .getElementById("order-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          var name = document.getElementById("of-name").value;
+          var email = document.getElementById("of-email").value;
+          var date = document.getElementById("of-date").value;
+          var message = document.getElementById("of-message").value;
+          var item = document.getElementById("order-item-label").textContent;
+          var subject = "Bouquet request: " + item;
+          var body =
+            "Name: " +
+            name +
+            "\n" +
+            "Email: " +
+            email +
+            "\n" +
+            "Preferred date: " +
+            (date || "Not specified") +
+            "\n\n" +
+            "Notes:\n" +
+            (message || "None");
+          var mailto =
+            "mailto:fleuraeatelier2024@gmail.com" +
+            "?subject=" +
+            encodeURIComponent(subject) +
+            "&body=" +
+            encodeURIComponent(body);
+          window.location.href = mailto;
+          document.getElementById("order-form-view").style.display = "none";
+          document.getElementById("order-success-view").classList.add("show");
+        });
+    </script>
+  </body>
 </html>

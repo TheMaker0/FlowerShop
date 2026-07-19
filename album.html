@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Album — Fleurae Atelier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,ital@9..144,300..700,0..1&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --moss:#1F2A1E;
+    --paper:#FAF6EE;
+    --rose:#C97B84;
+    --ochre:#C99B4A;
+    --ink:#2A271F;
+    --sage:#8FA37E;
+    --line:rgba(42,39,31,0.14);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--paper); color:var(--ink); font-family:'Work Sans', sans-serif; line-height:1.6; overflow-x:hidden;}
+  a{color:inherit; text-decoration:none;}
+  img,svg{display:block; max-width:100%;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
+  header{position:fixed; top:0; left:0; right:0; z-index:50; background:rgba(250,246,238,0.86); backdrop-filter:blur(8px); border-bottom:1px solid var(--line);}
+  nav.wrap{display:flex; align-items:center; justify-content:space-between; gap:16px; min-height:84px;}
+  .nav-actions{display:flex; align-items:center; gap:18px;}
+  .logo{display:flex; align-items:center; gap:10px; font-family:'Fraunces', serif; font-size:21px; font-weight:600; color:var(--moss); transition:transform 0.25s ease, color 0.25s ease;}
+  .logo:hover{transform:translateY(-1px) scale(1.02); color:var(--rose);}
+  .logo svg{width:26px; height:26px; transition:transform 0.25s ease;}
+  .logo:hover svg{transform:rotate(-8deg) scale(1.05);}
+  .nav-links{display:flex; gap:36px; font-size:14px; letter-spacing:0.02em;}
+  .nav-links a{position:relative; padding:4px 0; color:var(--ink);}
+  .nav-links a::after{content:''; position:absolute; left:0; bottom:0; width:0; height:1px; background:var(--rose); transition:width 0.3s ease;}
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{border:1px solid var(--moss); padding:10px 22px; border-radius:999px; font-size:13px; letter-spacing:0.03em; background:transparent; cursor:pointer; transition:background 0.25s ease, color 0.25s ease;}
+  .nav-cta:hover{background:var(--moss); color:var(--paper);}
+  .nav-toggle{display:none; border:none; background:none; cursor:pointer; width:40px; height:40px; padding:8px; flex-direction:column; justify-content:space-between;}
+  .nav-toggle span{display:block; width:100%; height:2px; background:var(--moss); border-radius:99px; transition:transform 0.3s ease, opacity 0.3s ease;}
+  .nav-toggle.open span:nth-child(1){transform:translateY(8px) rotate(45deg);} .nav-toggle.open span:nth-child(2){opacity:0;} .nav-toggle.open span:nth-child(3){transform:translateY(-8px) rotate(-45deg);}
+  .album-page{padding-top:140px; padding-bottom:100px; display:flex; align-items:center; justify-content:center; min-height:80vh;}
+  .detail-card{display:flex; flex-direction:column; align-items:center; justify-content:center; width:100%; max-width:100%;}
+  .detail-image{border-radius:24px; overflow:hidden; box-shadow:0 40px 80px rgba(31,42,30,0.12);}
+  .detail-image img{width:100%; height:auto; display:block; object-fit:cover; border-radius:24px; cursor:pointer;}
+  .image-gallery{display:flex; flex-direction:column; align-items:center; justify-content:center; width:100%;}
+  .gallery-container{position:relative; display:flex; align-items:center; justify-content:center; gap:20px; width:100%; max-width:100%;}
+  .gallery-arrow{background:none; border:none; cursor:pointer; width:48px; height:48px; display:flex; align-items:center; justify-content:center; border-radius:50%; border:2px solid var(--line); transition:all 0.3s ease; flex-shrink:0;}
+  .gallery-arrow:hover{background:var(--moss); border-color:var(--moss);}
+  .gallery-arrow:hover svg{stroke:var(--paper);}
+  .gallery-arrow svg{width:20px; height:20px; stroke:var(--moss); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; transition:stroke 0.3s ease;}
+  .gallery-main{border-radius:24px; overflow:hidden; box-shadow:0 40px 80px rgba(31,42,30,0.12); width:100%; max-width:840px; aspect-ratio:16/10; position:relative; z-index:2; cursor:pointer;}
+  .gallery-main img{width:100%; height:100%; object-fit:cover; border-radius:24px; transition:transform 0.3s ease;}
+  .gallery-main:hover img{transform:scale(1.02);}
+  .gallery-side{position:absolute; top:50%; transform:translateY(-50%); width:24%; max-width:280px; height:68%; overflow:hidden; border-radius:20px; filter:blur(0px); opacity:0.95; box-shadow:0 20px 60px rgba(0,0,0,0.12); transition:opacity 0.3s ease, transform 0.3s ease;}
+  .gallery-side.left{left:3%;}
+  .gallery-side.right{right:3%;}
+  .gallery-thumbs{display:flex; overflow-x:auto; padding-bottom:12px; gap:12px; margin-top:20px; width:100%; scroll-snap-type:x mandatory;}
+  .gallery-thumbs::-webkit-scrollbar{height:10px;}
+  .gallery-thumbs::-webkit-scrollbar-thumb{background:rgba(31,42,30,0.15); border-radius:99px;}
+  .gallery-thumb{border:none; background:none; padding:0; border-radius:18px; overflow:hidden; cursor:pointer; flex:0 0 auto; width:140px; height:140px; box-shadow:0 15px 30px rgba(31,42,30,0.08); transition:transform 0.25s ease, box-shadow 0.25s ease; scroll-snap-align:start;}
+  .gallery-thumb.active{transform:translateY(-2px); box-shadow:0 20px 40px rgba(31,42,30,0.16);}
+  .gallery-thumb img{width:100%; height:100%; object-fit:cover; display:block;}
+  .gallery-thumb:hover{transform:translateY(-2px);}
+  .gallery-side img{width:100%; height:100%; object-fit:cover; transform:scale(1.06); filter:blur(6px) saturate(0.9);}
+  .detail-meta{display:none;}
+  .detail-meta .label{display:none;}
+  .detail-meta h1{display:none;}
+  .detail-meta .description{display:none;}
+  .detail-meta .btn-back{display:none;}
+  .detail-meta .btn-back:hover{display:none;}
+  .content-message{padding:140px 0 100px; text-align:center;}
+  .content-message h2{font-size:clamp(28px, 4vw, 44px); margin-bottom:18px;}
+  .content-message p{max-width:560px; margin:0 auto 24px; color:#4F4A39; line-height:1.8;}
+  .content-message .btn-back{display:inline-flex; align-items:center; gap:10px; padding:14px 22px; border-radius:999px; background:var(--moss); color:var(--paper); font-size:13px;}
+  .social-row{display:flex; gap:14px;}
+  .social-icon{width:38px; height:38px; border-radius:50%; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; transition:background 0.25s ease, border-color 0.25s ease;}
+  .social-icon:hover{background:var(--moss); border-color:var(--moss);} .social-icon:hover svg{stroke:var(--paper); fill:var(--paper);} .social-icon svg{width:17px; height:17px;}
+  footer{background:var(--moss); color:#C9CFC2; padding:56px 0 32px;}
+  .footer-grid{display:flex; justify-content:space-between; flex-wrap:wrap; gap:32px; margin-bottom:40px;}
+  .footer-brand{font-family:'Fraunces', serif; font-size:22px; color:var(--paper); max-width:280px;}
+  .footer-brand p{font-size:13px; color:#9CA28F; margin-top:10px; font-family:'Work Sans', sans-serif;}
+  .footer-col h4{font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:#9CA28F; margin-bottom:14px; font-family:'Work Sans', sans-serif; font-weight:500;}
+  .footer-col a{display:block; font-size:14px; margin-bottom:10px; color:#D8DCCF;} .footer-col a:hover{color:var(--ochre);}
+  .footer-bottom{border-top:1px solid rgba(250,246,238,0.1); padding-top:24px; font-size:12.5px; display:flex; justify-content:space-between; color:#828867; flex-wrap:wrap; gap:12px;}
+  @media (max-width:920px){
+    .wrap{padding:0 20px;}
+    nav.wrap{min-height:74px; flex-wrap:wrap;}
+    .nav-actions{display:none;}
+    .nav-toggle{display:flex;}
+    .nav-links{display:none; position:fixed; top:74px; left:0; right:0; background:rgba(250,246,238,0.98); flex-direction:column; padding:20px 28px; gap:18px; box-shadow:0 24px 60px rgba(31,42,30,0.12);} .nav-links.open{display:flex;}
+    .nav-links a{font-size:17px; padding:12px 0;}
+    .album-page{padding-top:110px; padding-bottom:60px; min-height:auto;}
+    .detail-card{max-width:100%;}
+    .gallery-container{flex-direction:column; gap:16px;}
+    .gallery-side{display:none;}
+    .gallery-arrow{width:42px; height:42px;}
+    .gallery-main{max-width:100%; aspect-ratio:1.05;}
+    .gallery-main img{height:auto; max-height:72vh; object-fit:contain;}
+    .gallery-thumbs{gap:10px;}
+    .gallery-thumb{width:120px; height:120px;}
+    .footer-grid{flex-direction:column; gap:24px;}
+    .footer-bottom{flex-direction:column; align-items:flex-start;}
+  }
+  @media (max-width:600px){
+    .wrap{padding:0 16px;}
+    .logo{font-size:18px;}
+    .logo svg{width:22px; height:22px;}
+    .gallery-arrow{width:38px; height:38px;}
+    .gallery-main{aspect-ratio:1.05;}
+    .gallery-main img{max-height:64vh;}
+    .gallery-thumbs{gap:8px;}
+    .gallery-thumb{width:100px; height:100px;}
+  }</style>
+</head>
+<body>
+<header>
+  <nav class="wrap">
+    <a href="index.html" class="logo">
+      <svg viewBox="0 0 24 24"><path d="M12 2C12 2 8 6 8 10C8 12.2 9.8 14 12 14C14.2 14 16 12.2 16 10C16 6 12 2 12 2Z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M12 14V22" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
+      Fleurae Atelier
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-label="Open menu"><span></span><span></span><span></span></button>
+    <div class="nav-links">
+      <a href="index.html#philosophy">Studio</a>
+      <a href="collections.html">Collection</a>
+      <a href="albums.html">Albums</a>
+      <a href="index.html#process">Process</a>
+      <a href="index.html#visit">Visit</a>
+    </div>
+    <div class="nav-actions">
+      <div class="social-row">
+        <a class="social-icon" href="https://facebook.com/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="var(--moss)" stroke-width="1.6"><path d="M15 8h-2a2 2 0 0 0-2 2v3H9v3h2v6h3v-6h2.2l.8-3H14v-2a1 1 0 0 1 1-1h2V8Z"/></svg></a>
+        <a class="social-icon" href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="var(--moss)" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.4"/><circle cx="16.6" cy="7.4" r="0.6" fill="var(--moss)"/></svg></a>
+      </div>
+      <a class="nav-cta" href="mailto:fleurdelumiere16@gmail.com?subject=Order%20flowers">Order flowers</a>
+    </div>
+  </nav>
+</header>
+<main class="wrap album-page">
+  <div id="detailContent"></div>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">Fleurae Atelier<p>A small floral atelier working in season, by hand, every day.</p></div>
+      <div class="footer-col"><h4>Studio</h4><a href="index.html#philosophy">Our approach</a><a href="index.html#process">How we work</a><a href="collections.html">This week's stems</a></div>
+      <div class="footer-col"><h4>Follow</h4><div class="social-row"><a class="social-icon" href="https://facebook.com/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="#D8DCCF" stroke-width="1.6"><path d="M15 8h-2a2 2 0 0 0-2 2v3H9v3h2v6h3v-6h2.2l.8-3H14v-2a1 1 0 0 1 1-1h2V8Z"/></svg></a><a class="social-icon" href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="#D8DCCF" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.4"/><circle cx="16.6" cy="7.4" r="0.6" fill="#D8DCCF"/></svg></a></div></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Fleurae Atelier Floral Atelier</span><span>Cut fresh, arranged daily</span></div>
+  </div>
+</footer>
+<script>
+  var navToggle = document.querySelector('.nav-toggle');
+  var navLinks = document.querySelector('.nav-links');
+  if(navToggle && navLinks){
+    navToggle.addEventListener('click', function(){
+      var isOpen = navLinks.classList.toggle('open');
+      navToggle.classList.toggle('open', isOpen);
+      navToggle.setAttribute('aria-expanded', isOpen);
+    });
+    document.querySelectorAll('.nav-links a').forEach(function(link){
+      link.addEventListener('click', function(){
+        if(navLinks.classList.contains('open')){
+          navLinks.classList.remove('open');
+          navToggle.classList.remove('open');
+          navToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  }
+
+  function getAlbumId(){
+    var params = new URLSearchParams(window.location.search);
+    return params.get('id');
+  }
+
+  function showError(){
+    document.getElementById('detailContent').innerHTML = '<div class="content-message"><h2>Album not found</h2><p>The album you selected could not be loaded. Please return to the album list and try again.</p><a class="btn-back" href="albums.html">Back to albums</a></div>';
+  }
+
+  function renderAlbumDetail(item){
+    document.title = item.title + ' — Fleurae Atelier';
+    var images = item.images && item.images.length > 0 ? item.images : [item.src];
+    var prevIdx = images.length > 1 ? (images.length - 1) : 0;
+    var nextIdx = images.length > 1 ? 1 : 0;
+    var leftBg = images[prevIdx];
+    var rightBg = images[nextIdx];
+    var thumbsHtml = '';
+    if(images.length > 1){
+      thumbsHtml = '<div class="gallery-thumbs">';
+      for(var i = 0; i < images.length; i++){
+        thumbsHtml += '<button class="gallery-thumb' + (i === 0 ? ' active' : '') + '" onclick="switchImage(' + i + ')" aria-label="View image ' + (i + 1) + '">' +
+          '<img src="' + images[i] + '" alt="' + item.title + ' preview ' + (i + 1) + '">' +
+          '</button>';
+      }
+      thumbsHtml += '</div>';
+    }
+    document.getElementById('detailContent').innerHTML = '<div class="detail-card">' +
+      '<div class="image-gallery">' +
+      '<div class="gallery-container" style="position:relative; display:flex; align-items:center; justify-content:center;">' +
+      '<div class="gallery-side left" id="sideLeft" onclick="switchImage(' + prevIdx + ')"><img src="' + leftBg + '" alt="prev"></div>' +
+      '<button class="gallery-arrow" onclick="prevImage()" aria-label="Previous image"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></button>' +
+      '<div class="gallery-main" id="mainImage" onclick="nextImage()" aria-label="Next image"><img src="' + images[0] + '" alt="' + item.title + '"></div>' +
+      '<button class="gallery-arrow" onclick="nextImage()" aria-label="Next image"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></button>' +
+      '<div class="gallery-side right" id="sideRight" onclick="switchImage(' + nextIdx + ')"><img src="' + rightBg + '" alt="next"></div>' +
+      '</div>' +
+      thumbsHtml +
+      '</div>' +
+      '</div>';
+    window.currentAlbumImages = images;
+    window.currentImageIndex = 0;
+    updateSidePreviews();
+  }
+
+  function loadAlbumDetail(){
+    var albumId = getAlbumId();
+    if(!albumId){ showError(); return; }
+    fetch('albums-new.json')
+      .then(function(response){ if(!response.ok){ throw new Error('Network response was not ok'); } return response.json(); })
+      .then(function(data){
+        var item = data.find(function(entry){ return String(entry.id) === String(albumId); });
+        if(!item){ showError(); return; }
+        renderAlbumDetail(item);
+      })
+      .catch(function(){ showError(); });
+  }
+
+  function switchImage(index){
+    if(!window.currentAlbumImages || index < 0 || index >= window.currentAlbumImages.length) return;
+    document.getElementById('mainImage').innerHTML = '<img src="' + window.currentAlbumImages[index] + '" alt="Image ' + (index + 1) + '">';
+    window.currentImageIndex = index;
+    updateSidePreviews();
+    var thumbs = document.querySelectorAll('.gallery-thumb');
+    thumbs.forEach(function(btn, idx){
+      btn.classList.toggle('active', idx === index);
+      if(idx === index){ btn.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'}); }
+    });
+  }
+
+  function prevImage(){
+    var currentIndex = window.currentImageIndex || 0;
+    var nextIndex = currentIndex <= 0 ? window.currentAlbumImages.length - 1 : currentIndex - 1;
+    switchImage(nextIndex);
+  }
+
+  function nextImage(){
+    var currentIndex = window.currentImageIndex || 0;
+    var nextIndex = currentIndex >= window.currentAlbumImages.length - 1 ? 0 : currentIndex + 1;
+    switchImage(nextIndex);
+  }
+
+  function updateSidePreviews(){
+    var images = window.currentAlbumImages || [];
+    if(!images.length) return;
+    var idx = window.currentImageIndex || 0;
+    var prev = idx - 1 >= 0 ? idx - 1 : images.length - 1;
+    var next = idx + 1 < images.length ? idx + 1 : 0;
+    var left = document.getElementById('sideLeft');
+    var right = document.getElementById('sideRight');
+    if(left) left.style.backgroundImage = 'url("' + images[prev] + '")';
+    if(right) right.style.backgroundImage = 'url("' + images[next] + '")';
+    // subtle scale on side previews
+    if(left) left.style.transform = 'translateY(-50%) scale(0.98)';
+    if(right) right.style.transform = 'translateY(-50%) scale(0.98)';
+  }
+
+  window.currentAlbumImages = [];
+  window.currentImageIndex = 0;
+
+  document.addEventListener('DOMContentLoaded', loadAlbumDetail);
+</script>
+</body>
+</html>
